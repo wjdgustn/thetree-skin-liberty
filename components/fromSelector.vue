@@ -55,7 +55,7 @@ export default {
     methods: {
         onClickSearch() {
             if (!this.revInput) return;
-            this.$router.push(this.doc_action_link(this.$store.state.page.data.document, 'history', { from: this.revInput }));
+            this.$router.push(this.doc_action_link(this.$store.state.page.data.document, 'history', this.until ? { until: this.revInput } : { from: this.revInput }));
         }
     },
     watch: {
