@@ -1,5 +1,6 @@
 <template>
     <div v-if="$store.state.localConfig['liberty.rev_selector'] !== false && $store.state.page.viewName === 'history'">
+        <input v-model="until" type="checkbox">
         <input v-model="revInput" type="text" inputmode="numeric" pattern="\d*" class="form-control" placeholder="rev">
         <button @click="onClickSearch" type="button" class="btn btn-secondary">
             <span class="fa fa-search"></span>
@@ -13,16 +14,21 @@ div {
     margin: 1rem;
 }
 
-input {
+input[type="text"] {
     width: 5rem;
     display: inline-block;
+}
+
+input[type="checkbox"] {
+    margin-right: 0.6rem;
+    vertical-align: middle;
 }
 
 button > .fa {
     font-size: 0.9rem;
 }
 
-.theseed-dark-mode input,
+.theseed-dark-mode input[type="text"],
 .theseed-dark-mode button {
     background-color: #27292d;
     border-color: #383b40;
@@ -42,18 +48,20 @@ export default {
     mixins: [Common],
     data() {
         return {
-            revInput: this.$route.query.from ?? ''
+            until: !!this.$route.query.until,
+            revInput: (this.$route.query.from || this.$route.query.until) ?? ''
         }
     },
     methods: {
         onClickSearch() {
             if (!this.revInput) return;
-            this.$router.push(this.doc_action_link(this.$store.state.page.data.document, 'history', { from: this.revInput }));
+            this.$router.push(this.doc_action_link(this.$store.state.page.data.document, 'history', this.until ? { until: this.revInput } : { from: this.revInput }));
         }
     },
     watch: {
-        '$route.query.from'() {
-            this.revInput = this.$route.query.from;
+        '$route.query'() {
+            this.until = !!this.$route.query.until;
+            this.revInput = (this.$route.query.from || this.$route.query.until) ?? '';
         }
     }
 }
