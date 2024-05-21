@@ -75,9 +75,9 @@
                 <search-form />
             </nav>
         </div>
-        <div class="content-wrapper">
+        <div class="content-wrapper" :class="{ 'hide-sidebar': $store.state.localConfig['liberty.sidebar'] === 'hide' }">
             <div class="liberty-sidebar">
-                <div class="liberty-right-fixed" :class="{ 'fixed': $store.state.localConfig['liberty.fixed_sidebar'] === true }">
+                <div class="liberty-right-fixed" :class="{ 'fixed': $store.state.localConfig['liberty.sidebar'] === 'fix' }">
                     <div class="live-recent">
                         <div class="live-recent-header">
                             <ul class="nav nav-tabs">
@@ -138,6 +138,10 @@
                         </button>
                         현재 진행 중인 <nuxt-link :to="doc_action_link(user_doc($store.state.session.member.username), 'discuss')">사용자 토론</nuxt-link>이 있습니다.
                     </div>
+                    <div v-if="$store.state.page.viewName === 'notfound'" class="alert alert-info" role="alert">
+                        '{{ $store.state.page.title }}'을(를) 검색하시겠습니까?
+                        <div class="float-right"><seed-link-button :to="{path:'/search',query:{q:$store.state.page.title}}">검색</seed-link-button></div>
+                    </div>
                     <rev-selector />
                     <from-selector />
                     <nuxt />
@@ -166,7 +170,11 @@
             <nuxt-link id="right" class="scroll-bottom" to="#bottom"><i class="fa fa-arrow-down" aria-hidden="true"></i></nuxt-link>
         </div>
         <setting>
-            <setting-item-checkbox label="사이드바 고정" ckey="liberty.fixed_sidebar" />
+            <setting-item-select label="사이드바 설정" ckey="liberty.sidebar" default="normal">
+                <option value="fix">고정</option>
+                <option value="hide">숨김</option>
+                <option value="normal">기본</option>
+            </setting-item-select>
             <setting-item-checkbox label="내비게이션 바 고정" ckey="liberty.fixed_navbar" />
             <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" default="checked" />
             <setting-item-checkbox label="리버전 선택기" ckey="liberty.rev_selector" default="checked" />
@@ -188,6 +196,8 @@
 import Common from '~/mixins/common';
 import Setting from '~/components/setting';
 import SettingItemCheckbox from '~/components/settingItemCheckbox';
+import SettingItemSelect from '~/components/settingItemSelect';
+import SeedLinkButton from '~/components/seedLinkButton';
 import LocalDate from '~/components/localDate';
 import RecentCard from './components/recentCard';
 import SearchForm from './components/searchForm';
@@ -209,6 +219,8 @@ export default {
     components: {
         Setting,
         SettingItemCheckbox,
+        SettingItemSelect,
+        SeedLinkButton,
         LocalDate,
         RecentCard,
         SearchForm,
