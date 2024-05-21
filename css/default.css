@@ -695,6 +695,10 @@ caption {
     color: #373a3c;
     caption-side: top;
 }
+
+.float-right {
+    float: right;
+}
 /* 부트스트랩 커스텀 End*/
 
 div.scroll-buttons {
