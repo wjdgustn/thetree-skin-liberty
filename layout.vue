@@ -140,7 +140,7 @@
                     </div>
                     <div v-if="$store.state.page.viewName === 'notfound'" id="searchSuggest" class="alert alert-info" role="alert">
                         '{{ $store.state.page.title }}'을(를) 검색하시겠습니까?
-                        <div class="float-right"><seed-link-button :to="{path:'/Search',query:{q:$store.state.page.title}}">검색</seed-link-button></div>
+                        <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
                     </div>
                     <rev-selector />
