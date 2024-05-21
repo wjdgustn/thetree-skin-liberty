@@ -460,6 +460,14 @@ del, s, strike {
     word-break: break-all;
 }
 
+.Liberty .content-wrapper.hide-sidebar .liberty-sidebar {
+    display: none;
+}
+
+.Liberty .content-wrapper.hide-sidebar .liberty-content {
+    margin-right: 0 !important;
+}
+
 .Liberty .content-wrapper .liberty-content .notification .label {
     padding: 0.25rem 0.4rem;
     line-height: 1rem;
