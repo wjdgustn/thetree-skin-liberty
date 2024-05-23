@@ -730,3 +730,7 @@ div.scroll-buttons a {
 .scroll-buttons a:link, .scroll-buttons a:visited {
     color: white;
 }
+
+#searchSuggest {
+    line-height: 2.1rem;
+}
