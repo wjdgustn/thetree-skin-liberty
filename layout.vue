@@ -39,35 +39,33 @@
                 <div class="navbar-login">
                     <div class="dropdown login-menu">
                         <a id="login-menu" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img v-if="$store.state.session.member" class="profile-img" :src="$store.state.session.member.gravatar_url">
+                            <img v-if="$store.state.session.gravatar_url" class="profile-img" :src="$store.state.session.gravatar_url">
                             <span v-else class="fa fa-user"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right login-dropdown-menu" aria-labelledby="login-menu">
-                            <div v-if="$store.state.session.member" class="username dropdown-item">
-                                <b>{{ $store.state.session.member.username }}</b><br>Member
+                            <div v-if="$store.state.session.account.type === 1" class="username dropdown-item">
+                                <b>{{ $store.state.session.account.name }}</b><br>Member
                             </div>
-                            <div v-else class="username dropdown-item">
-                                <b>{{ $store.state.session.ip }}</b><br>Please login!
+                            <div v-else-if="$store.state.session.account.type === 0" class="username dropdown-item">
+                                <b>{{ $store.state.session.account.name }}</b><br>Please login!
                             </div>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item" @click.prevent="$modal.show('theseed-setting');">설정</a>
                             <a v-if="$store.state.currentTheme === 'light'" href="#" class="dropdown-item" @click.prevent="$store.commit('localConfigSetValue', {key: 'wiki.theme', value: 'dark'})">다크 테마로</a>
                             <a v-if="$store.state.currentTheme === 'dark'" href="#" class="dropdown-item" @click.prevent="$store.commit('localConfigSetValue', {key: 'wiki.theme', value: 'light'})">라이트 테마로</a>
                             <div class="dropdown-divider"></div>
-                            <template v-if="$store.state.session.member">
+                            <template v-if="$store.state.session.account.type === 1">
                                 <nuxt-link to="/member/mypage" class="dropdown-item">내 정보</nuxt-link>
-                                <nuxt-link :to="doc_action_link(user_doc($store.state.session.member.username), 'w')" class="dropdown-item">내 사용자 문서</nuxt-link>
+                                <nuxt-link :to="doc_action_link(user_doc($store.state.session.account.name), 'w')" class="dropdown-item">내 사용자 문서</nuxt-link>
                                 <nuxt-link to="/member/starred_documents" class="dropdown-item">내 문서함</nuxt-link>
                                 <div class="dropdown-divider"></div>
-                                <nuxt-link class="dropdown-item" :to="contribution_author_link($store.state.session.member.username)">내 문서 기여 목록</nuxt-link>
-                                <nuxt-link class="dropdown-item" :to="contribution_author_link_discuss($store.state.session.member.username)">내 토론 기여 목록</nuxt-link>
                             </template>
-                            <template v-else>
-                                <nuxt-link class="dropdown-item" :to="contribution_ip_link($store.state.session.ip)">내 문서 기여 목록</nuxt-link>
-                                <nuxt-link class="dropdown-item" :to="contribution_ip_link_discuss($store.state.session.ip)">내 토론 기여 목록</nuxt-link>
+                            <template v-if="$store.state.session.account.uuid">
+                                <nuxt-link class="dropdown-item" :to="contribution_link($store.state.session.account.uuid)">내 문서 기여 목록</nuxt-link>
+                                <nuxt-link class="dropdown-item" :to="contribution_link_discuss($store.state.session.account.uuid)">내 토론 기여 목록</nuxt-link>
                             </template>
                             <div class="dropdown-divider"></div>
-                            <nuxt-link v-if="$store.state.session.member" :to="{path:'/member/logout',query:{redirect:$route.fullPath}}" class="dropdown-item">로그아웃</nuxt-link>
+                            <nuxt-link v-if="$store.state.session.account.type === 1" :to="{path:'/member/logout',query:{redirect:$route.fullPath}}" class="dropdown-item">로그아웃</nuxt-link>
                             <nuxt-link v-else :to="{path:'/member/login',query:{redirect:$route.fullPath}}" class="dropdown-item">로그인</nuxt-link>
                         </div>
                     </div>
@@ -132,11 +130,11 @@
                         <span v-html="$store.state.page.data.edit_acl_message" @click="onDynamicContentClick($event)"></span>
                         <span v-if="requestable">대신 <nuxt-link :to="doc_action_link($store.state.page.data.document, 'new_edit_request')">편집 요청</nuxt-link>을 생성할 수 있습니다.</span>
                     </div>
-                    <div v-if="$store.state.session.member && $store.state.session.member.user_document_discuss && $store.state.localConfig['wiki.hide_user_document_discuss'] !== $store.state.session.member.user_document_discuss" id="userDiscussAlert" class="alert alert-info fade in" role="alert">
+                    <div v-if="$store.state.session.user_document_discuss && $store.state.localConfig['wiki.hide_user_document_discuss'] !== $store.state.session.user_document_discuss" id="userDiscussAlert" class="alert alert-info fade in" role="alert">
                         <button @click="$store.commit('localConfigSetValue', {key: 'wiki.hide_user_document_discuss', value: $store.state.session.member.user_document_discuss})" type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        현재 진행 중인 <nuxt-link :to="doc_action_link(user_doc($store.state.session.member.username), 'discuss')">사용자 토론</nuxt-link>이 있습니다.
+                        현재 진행 중인 <nuxt-link :to="doc_action_link(user_doc($store.state.session.account.name), 'discuss')">사용자 토론</nuxt-link>이 있습니다.
                     </div>
                     <div v-if="$store.state.page.viewName === 'notfound'" id="searchSuggest" class="alert alert-info" role="alert">
                         '{{ $store.state.page.title }}'을(를) 검색하시겠습니까?
@@ -289,7 +287,7 @@ export default {
             r = Math.round(r * (1 - percent / 100));
             g = Math.round(g * (1 - percent / 100));
             b = Math.round(b * (1 - percent / 100));
-            
+
             return "#" + ((r < 16 ? "0" : "") + r.toString(16)) + ((g < 16 ? "0" : "") + g.toString(16)) + ((b < 16 ? "0" : "") + b.toString(16));
         },
         lightenColor(hex, percent=50) {
