@@ -119,6 +119,9 @@
                             <small v-else-if="$store.state.page.viewName === 'blame' && $store.state.page.data.rev">(r{{$store.state.page.data.rev}} Blame)</small>
                             <small v-else-if="$store.state.page.viewName === 'wiki' && $store.state.page.data.rev">(r{{$store.state.page.data.rev}} 판)</small>
                         </h1>
+                        <h1 v-else-if="($store.state.page.data.viewName === 'contribution' || $store.state.page.data.viewName === 'contribution_discuss') && $store.state.page.viewName !== 'error'">
+                            "<author-span :account="$store.state.page.data.account" :admin="false" :discuss="false"></author-span>" 기여 목록
+                        </h1>
                         <h1 v-else>{{ $store.state.page.title }}</h1>
                     </div>
                 </div>
@@ -193,6 +196,7 @@
 
 <script>
 import Common from '~/mixins/common';
+import AuthorSpan from '~/components/authorSpan';
 import Setting from '~/components/setting';
 import SettingItemCheckbox from '~/components/settingItemCheckbox';
 import SettingItemSelect from '~/components/settingItemSelect';
@@ -216,6 +220,7 @@ if (process.browser) {
 export default {
     mixins: [Common],
     components: {
+        AuthorSpan,
         Setting,
         SettingItemCheckbox,
         SettingItemSelect,
