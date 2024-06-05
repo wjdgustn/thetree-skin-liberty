@@ -27,7 +27,7 @@
             <template v-if="toolList.includes('contribution') || toolList.includes('raw') || toolList.includes('blame') || toolList.includes('diff') || toolList.includes('revert') || toolList.includes('menu')">
                 <button type="button" class="btn btn-secondary tools-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                 <div class="dropdown-menu dropdown-menu-right" role="menu">
-                    <nuxt-link v-if="toolList.includes('contribution')" :to="contribution_link($store.state.page.data.user.uuid)" class="dropdown-item">기여 내역</nuxt-link>
+                    <nuxt-link v-if="toolList.includes('contribution')" :to="contribution_link($store.state.page.data.user.uuid)" class="dropdown-item">기여 목록</nuxt-link>
                     <nuxt-link v-if="toolList.includes('raw')" :to="doc_action_link($store.state.page.data.document, 'raw', rev ? { rev } : undefined)" class="dropdown-item">RAW</nuxt-link>
                     <nuxt-link v-if="toolList.includes('blame')" :to="doc_action_link($store.state.page.data.document, 'blame', rev ? { rev } : undefined)" class="dropdown-item">Blame</nuxt-link>
                     <nuxt-link v-if="toolList.includes('diff')" :to="doc_action_link($store.state.page.data.document, 'diff', rev ? { rev, oldrev: rev - 1 } : undefined)" class="dropdown-item">이전 리버전과 비교</nuxt-link>

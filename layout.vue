@@ -63,8 +63,8 @@
                             <template v-if="$store.state.session.account.uuid">
                                 <nuxt-link class="dropdown-item" :to="contribution_link($store.state.session.account.uuid)">내 문서 기여 목록</nuxt-link>
                                 <nuxt-link class="dropdown-item" :to="contribution_link_discuss($store.state.session.account.uuid)">내 토론 기여 목록</nuxt-link>
+                                <div class="dropdown-divider"></div>
                             </template>
-                            <div class="dropdown-divider"></div>
                             <nuxt-link v-if="$store.state.session.account.type === 1" :to="{path:'/member/logout',query:{redirect:$route.fullPath}}" class="dropdown-item">로그아웃</nuxt-link>
                             <nuxt-link v-else :to="{path:'/member/login',query:{redirect:$route.fullPath}}" class="dropdown-item">로그인</nuxt-link>
                         </div>
@@ -118,6 +118,9 @@
                             <small v-else-if="$store.state.page.viewName === 'raw' && $store.state.page.data.rev">(r{{$store.state.page.data.rev}} RAW)</small>
                             <small v-else-if="$store.state.page.viewName === 'blame' && $store.state.page.data.rev">(r{{$store.state.page.data.rev}} Blame)</small>
                             <small v-else-if="$store.state.page.viewName === 'wiki' && $store.state.page.data.rev">(r{{$store.state.page.data.rev}} 판)</small>
+                        </h1>
+                        <h1 v-else-if="($store.state.page.data.viewName === 'contribution' || $store.state.page.data.viewName === 'contribution_discuss') && $store.state.page.viewName !== 'error'">
+                            "<author-span :account="$store.state.page.data.account" :admin="false" :discuss="false"></author-span>" 기여 목록
                         </h1>
                         <h1 v-else>{{ $store.state.page.title }}</h1>
                     </div>
@@ -193,6 +196,7 @@
 
 <script>
 import Common from '~/mixins/common';
+import AuthorSpan from '~/components/authorSpan';
 import Setting from '~/components/setting';
 import SettingItemCheckbox from '~/components/settingItemCheckbox';
 import SettingItemSelect from '~/components/settingItemSelect';
@@ -216,6 +220,7 @@ if (process.browser) {
 export default {
     mixins: [Common],
     components: {
+        AuthorSpan,
         Setting,
         SettingItemCheckbox,
         SettingItemSelect,
