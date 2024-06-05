@@ -15,7 +15,7 @@
             </template>
             <template v-else>
                 <li v-for="(r,i) in recent" :key="i">
-                    <nuxt-link class="recent-item" :key="r.document" :to="doc_action_link(r.document, 'w')">[<local-date :date="r.date" :format="getDateType(r.date)" />] {{ r.document }}</nuxt-link>
+                    <nuxt-link class="recent-item" :class="{ removed: r.status === 'delete' }" :key="r.document" :to="doc_action_link(r.document, 'w')">[<local-date :date="r.date" :format="getDateType(r.date)" />] {{ r.document }}</nuxt-link>
                 </li>
             </template>
         </ul>
