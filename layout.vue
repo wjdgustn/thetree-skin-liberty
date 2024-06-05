@@ -119,7 +119,7 @@
                             <small v-else-if="$store.state.page.viewName === 'blame' && $store.state.page.data.rev">(r{{$store.state.page.data.rev}} Blame)</small>
                             <small v-else-if="$store.state.page.viewName === 'wiki' && $store.state.page.data.rev">(r{{$store.state.page.data.rev}} 판)</small>
                         </h1>
-                        <h1 v-else-if="($store.state.page.data.viewName === 'contribution' || $store.state.page.data.viewName === 'contribution_discuss') && $store.state.page.viewName !== 'error'">
+                        <h1 v-else-if="($store.state.page.viewName === 'contribution' || $store.state.page.viewName === 'contribution_discuss') && $store.state.page.viewName !== 'error'">
                             "<author-span :account="$store.state.page.data.account" :admin="false" :discuss="false"></author-span>" 기여 목록
                         </h1>
                         <h1 v-else>{{ $store.state.page.title }}</h1>
