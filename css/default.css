@@ -420,6 +420,10 @@ del, s, strike {
     color: #b73333;
 }
 
+.Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-content .live-recent-list .recent-item.removed {
+    text-decoration: line-through;
+}
+
 .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-footer {
     background-color: #f5f8fa;
     border: 1px solid #e1e8ed;
