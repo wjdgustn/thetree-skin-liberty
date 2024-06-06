@@ -103,7 +103,7 @@ export default {
     },
     methods: {
         block() {
-            if (this.$store.state.page.data.account) {
+            if (this.$store.state.page.data.account && this.$store.state.page.data.account.type === 1) {
                 this.$modal.show('theseed-quick-aclgroup', {
                     username: "".concat(this.$store.state.page.data.account.name),
                     note: "".concat("기여 목록 긴급차단")
