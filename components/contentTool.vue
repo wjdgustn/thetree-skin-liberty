@@ -94,7 +94,7 @@ export default {
                 case 'contribution':
                 case 'contribution_discuss':
                     if (this.$store.state.page.data.account.type === 1) tools.push('userdoc');
-                    if (this.$store.state.session.quick_block) tools.push('block');
+                    if (this.$store.state.session.quick_block && this.$store.state.page.data.account.type !== -1) tools.push('block');
                     break;
             }
             if (this.$store.state.page.data.menus?.length) tools.push('menu');
@@ -103,7 +103,7 @@ export default {
     },
     methods: {
         block() {
-            if (this.$store.state.page.data.account && this.$store.state.page.data.account.type === 1) {
+            if (this.$store.state.page.data.account.type === 1) {
                 this.$modal.show('theseed-quick-aclgroup', {
                     username: "".concat(this.$store.state.page.data.account.name),
                     note: "".concat("기여 목록 긴급차단")
