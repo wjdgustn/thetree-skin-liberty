@@ -175,9 +175,9 @@
                 <option value="normal">기본</option>
             </setting-item-select>
             <setting-item-checkbox label="내비게이션 바 고정" ckey="liberty.fixed_navbar" />
-            <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" default="checked" />
-            <setting-item-checkbox label="리버전 선택기" ckey="liberty.rev_selector" default="checked" />
-            <setting-item-checkbox label="리버전 편의성 개선" ckey="liberty.rev_convenience" default="checked" />
+            <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" :default="true" />
+            <setting-item-checkbox label="리버전 선택기" ckey="liberty.rev_selector" :default="true" />
+            <setting-item-checkbox label="리버전 편의성 개선" ckey="liberty.rev_convenience" :default="true" />
         </setting>
     </div>
 </template>
