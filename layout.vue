@@ -136,7 +136,7 @@
                         </button>
                         현재 진행 중인 <nuxt-link :to="doc_action_link(user_doc($store.state.session.account.name), 'discuss')">사용자 토론</nuxt-link>이 있습니다.
                     </div>
-                    <div v-if="$store.state.page.viewName === 'notfound'" id="searchSuggest" class="alert alert-info" role="alert">
+                    <div v-if="$store.state.page.viewName === 'notfound' && $store.state.page.data.document.namespace === '문서'" id="searchSuggest" class="alert alert-info" role="alert">
                         '{{ $store.state.page.title }}'을(를) 검색하시겠습니까?
                         <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
