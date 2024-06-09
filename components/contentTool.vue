@@ -103,17 +103,11 @@ export default {
     },
     methods: {
         block() {
-            if (this.$store.state.page.data.account.type === 1) {
-                this.$modal.show('theseed-quick-aclgroup', {
-                    username: "".concat(this.$store.state.page.data.account.name),
-                    note: "".concat("기여 목록 긴급차단")
-                });
-            } else {
-                this.$modal.show('theseed-quick-aclgroup', {
-                    ip: "".concat(this.$store.state.page.data.account.name),
-                    note: "".concat("기여 목록 긴급차단")
-                });
-            }
+            this.$modal.show('theseed-quick-aclgroup', {
+                username: this.$store.state.page.data.account.type === 1 ? "".concat(this.$store.state.page.data.account.name) : undefined,
+                ip: this.$store.state.page.data.account.type === 0 ? "".concat(this.$store.state.page.data.account.name) : undefined,
+                note: "".concat("기여 목록 긴급차단")
+            });
         }
     }
 }
