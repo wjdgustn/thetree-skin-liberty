@@ -154,7 +154,7 @@
                         <li class="footer-info-lastmod">이 문서는 <local-date :date="$store.state.page.data.date" />에 마지막으로 편집되었습니다.</li>
                         <li class="footer-info-copyright" v-html="$store.state.config['wiki.copyright_text']" />
                     </ul>
-                    <ul class="footer-places" v-html="$store.state.config['skin.liberty.footer_html']" />
+                    <ul class="footer-places" @click="onDynamicContentClick($event)" v-html="$store.state.config['skin.liberty.footer_html']" />
                     <ul class="footer-icons">
                         <li class="footer-poweredbyico">
                             <a href="//gitlab.com/librewiki/Liberty-MW-Skin">Liberty</a> | <a href="//theseed.io/">the seed</a>
