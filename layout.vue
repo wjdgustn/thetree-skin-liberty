@@ -128,7 +128,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <span v-html="$store.state.page.data.edit_acl_message" @click="onDynamicContentClick($event)"></span>
-                        <span v-if="requestable">대신 <nuxt-link :to="doc_action_link($store.state.page.data.document, 'new_edit_request')">편집 요청</nuxt-link>을 생성할 수 있습니다.</span>
+                        <span v-if="requestable"><br v-if="$store.state.page.data.edit_acl_message.includes('\n')">대신 <nuxt-link :to="doc_action_link($store.state.page.data.document, 'new_edit_request')">편집 요청</nuxt-link>을 생성할 수 있습니다.</span>
                     </div>
                     <div v-if="$store.state.session.user_document_discuss && $store.state.localConfig['wiki.hide_user_document_discuss'] !== $store.state.session.user_document_discuss" id="userDiscussAlert" class="alert alert-info fade in" role="alert">
                         <button @click="$store.commit('localConfigSetValue', {key: 'wiki.hide_user_document_discuss', value: $store.state.session.member.user_document_discuss})" type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -136,7 +136,7 @@
                         </button>
                         현재 진행 중인 <nuxt-link :to="doc_action_link(user_doc($store.state.session.account.name), 'discuss')">사용자 토론</nuxt-link>이 있습니다.
                     </div>
-                    <div v-if="$store.state.page.viewName === 'notfound'" id="searchSuggest" class="alert alert-info" role="alert">
+                    <div v-if="$store.state.page.viewName === 'notfound' && $store.state.page.data.document.namespace === '문서'" id="searchSuggest" class="alert alert-info" role="alert">
                         '{{ $store.state.page.title }}'을(를) 검색하시겠습니까?
                         <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
@@ -154,7 +154,7 @@
                         <li class="footer-info-lastmod">이 문서는 <local-date :date="$store.state.page.data.date" />에 마지막으로 편집되었습니다.</li>
                         <li class="footer-info-copyright" v-html="$store.state.config['wiki.copyright_text']" />
                     </ul>
-                    <ul class="footer-places" v-html="$store.state.config['skin.liberty.footer_html']" />
+                    <ul class="footer-places" @click="onDynamicContentClick($event)" v-html="$store.state.config['skin.liberty.footer_html']" />
                     <ul class="footer-icons">
                         <li class="footer-poweredbyico">
                             <a href="//gitlab.com/librewiki/Liberty-MW-Skin">Liberty</a> | <a href="//theseed.io/">the seed</a>
@@ -175,9 +175,9 @@
                 <option value="normal">기본</option>
             </setting-item-select>
             <setting-item-checkbox label="내비게이션 바 고정" ckey="liberty.fixed_navbar" />
-            <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" default="checked" />
-            <setting-item-checkbox label="리버전 선택기" ckey="liberty.rev_selector" default="checked" />
-            <setting-item-checkbox label="리버전 편의성 개선" ckey="liberty.rev_convenience" default="checked" />
+            <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" :default="true" />
+            <setting-item-checkbox label="리버전 선택기" ckey="liberty.rev_selector" :default="true" />
+            <setting-item-checkbox label="리버전 편의성 개선" ckey="liberty.rev_convenience" :default="true" />
         </setting>
     </div>
 </template>
