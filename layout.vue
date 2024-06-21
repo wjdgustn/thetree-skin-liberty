@@ -141,8 +141,8 @@
                         <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
                     </div>
-                    <rev-selector />
-                    <from-selector />
+                    <rev-selector v-if="$store.state.page.viewName === 'diff' || $store.state.page.viewName === 'blame'" />
+                    <from-selector v-if="$store.state.page.viewName === 'history'" />
                     <nuxt />
                     <div v-if="$store.state.page.viewName === 'license'">
                         <h2>Liberty skin license</h2>

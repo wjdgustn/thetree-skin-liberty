@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$store.state.localConfig['liberty.rev_selector'] !== false && $store.state.page.viewName === 'history'">
+    <div v-if="$store.state.localConfig['liberty.rev_selector'] !== false">
         <input v-model="until" type="checkbox">
         <input v-model="revInput" type="text" inputmode="numeric" pattern="\d*" class="form-control" placeholder="rev">
         <button @click="onClickSearch" type="button" class="btn btn-secondary">
