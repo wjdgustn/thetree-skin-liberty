@@ -132,7 +132,7 @@
                     </alert>
                     <alert v-if="$store.state.page.viewName === 'notfound' && $store.state.page.data.document.namespace === '문서'" style="line-height: 2.1rem;">
                         '{{ $store.state.page.title }}'을(를) 검색하시겠습니까?
-                        <div style="float: right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
+                        <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
                     </alert>
                     <rev-selector v-if="$store.state.page.viewName === 'diff' || $store.state.page.viewName === 'blame'" />
