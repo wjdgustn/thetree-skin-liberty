@@ -43,8 +43,10 @@
 
 <script>
 import Common from '~/mixins/common';
-
+import { VTooltip } from 'v-tooltip';
+    
 export default {
+    directives: { tooltip: VTooltip },
     mixins: [Common],
     computed: {
         convenience() {
