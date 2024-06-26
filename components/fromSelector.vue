@@ -11,7 +11,7 @@
 <style scoped>
 div {
     float: right;
-    margin: 1rem;
+    margin: 0.6rem;
 }
 
 input[type="text"] {
