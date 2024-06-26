@@ -123,26 +123,20 @@
                     </div>
                 </div>
                 <div class="liberty-content-main wiki-article">
-                    <div v-if="isShowACLMessage && $store.state.page.data.edit_acl_message" class="alert alert-danger" role="alert">
-                        <button @click="isShowACLMessage = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <alert v-if="isShowACLMessage && $store.state.page.data.edit_acl_message" @close="isShowACLMessage = false" danger closable>
                         <span v-html="$store.state.page.data.edit_acl_message" @click="onDynamicContentClick($event)"></span>
                         <span v-if="requestable"><br v-if="$store.state.page.data.edit_acl_message.includes('\n')">대신 <nuxt-link :to="doc_action_link($store.state.page.data.document, 'new_edit_request')">편집 요청</nuxt-link>을 생성할 수 있습니다.</span>
-                    </div>
-                    <div v-if="$store.state.session.user_document_discuss && $store.state.localConfig['wiki.hide_user_document_discuss'] !== $store.state.session.user_document_discuss" id="userDiscussAlert" class="alert alert-info fade in" role="alert">
-                        <button @click="$store.commit('localConfigSetValue', {key: 'wiki.hide_user_document_discuss', value: $store.state.session.member.user_document_discuss})" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    </alert>
+                    <alert v-if="$store.state.session.user_document_discuss && $store.state.localConfig['wiki.hide_user_document_discuss'] !== $store.state.session.user_document_discuss" @close="$store.commit('localConfigSetValue', {key: 'wiki.hide_user_document_discuss', value: $store.state.session.user_document_discuss})" closable>
                         현재 진행 중인 <nuxt-link :to="doc_action_link(user_doc($store.state.session.account.name), 'discuss')">사용자 토론</nuxt-link>이 있습니다.
-                    </div>
-                    <div v-if="$store.state.page.viewName === 'notfound' && $store.state.page.data.document.namespace === '문서'" id="searchSuggest" class="alert alert-info" role="alert">
+                    </alert>
+                    <alert v-if="$store.state.page.viewName === 'notfound' && $store.state.page.data.document.namespace === '문서'" style="line-height: 2.1rem;">
                         '{{ $store.state.page.title }}'을(를) 검색하시겠습니까?
                         <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
-                    </div>
-                    <rev-selector />
-                    <from-selector />
+                    </alert>
+                    <rev-selector v-if="$store.state.page.viewName === 'diff' || $store.state.page.viewName === 'blame'" />
+                    <from-selector v-if="$store.state.page.viewName === 'history'" />
                     <nuxt />
                     <div v-if="$store.state.page.viewName === 'license'">
                         <h2>Liberty skin license</h2>
@@ -193,6 +187,7 @@
 
 <script>
 import Common from '~/mixins/common';
+import Alert from '~/components/alert';
 import Setting from '~/components/setting';
 import SettingItemCheckbox from '~/components/settingItemCheckbox';
 import SettingItemSelect from '~/components/settingItemSelect';
@@ -216,6 +211,7 @@ if (process.browser) {
 export default {
     mixins: [Common],
     components: {
+        Alert,
         Setting,
         SettingItemCheckbox,
         SettingItemSelect,
