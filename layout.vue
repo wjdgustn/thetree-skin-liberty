@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="liberty-content-main wiki-article">
-                    <alert v-if="isShowACLMessage && $store.state.page.data.edit_acl_message" @close="isShowACLMessage = false" danger closable>
+                    <alert v-if="isShowACLMessage && $store.state.page.data.edit_acl_message" @close="isShowACLMessage = false" error closable>
                         <span v-html="$store.state.page.data.edit_acl_message" @click="onDynamicContentClick($event)"></span>
                         <span v-if="requestable"><br v-if="$store.state.page.data.edit_acl_message.includes('\n')">대신 <nuxt-link :to="doc_action_link($store.state.page.data.document, 'new_edit_request')">편집 요청</nuxt-link>을 생성할 수 있습니다.</span>
                     </alert>
@@ -259,7 +259,7 @@ export default {
                 '--brand-bright-color-1': 'var(--liberty-brand-bright-color)',
                 '--brand-bright-color-2': this.selectByTheme(this.$store.state.config['skin.liberty.brand_bright_color_2'] ?? 'var(--liberty-brand-bright-color)', 'var(--liberty-brand-bright-color)'),
                 '--text-color': this.selectByTheme('#373a3c', '#ddd'),
-                '--article-background-color': this.selectByTheme('#f5f5f5', '#000'),
+                '--article-background-color': this.selectByTheme('#fff', '#000'),
             };
         },
         requestable() {

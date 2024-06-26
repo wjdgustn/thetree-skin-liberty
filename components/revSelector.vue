@@ -5,7 +5,7 @@
                 <a class="page-link" href="#" @click.prevent="prevPage"><span class="ion-ios-arrow-back"></span> Prev</a>
             </li>
             <li v-for="n in itemList" :key="n" class="page-item">
-                <nuxt-link v-if="$store.state.page.viewName === 'diff'" :to="doc_action_link($store.state.page.data.document, 'diff', { rev, oldrev: n })" class="page-link" :class="{ selected: n === $route.query.oldrev }">{{ n }}</nuxt-link>
+                <nuxt-link v-if="$store.state.page.viewName === 'diff'" :to="doc_action_link($store.state.page.data.document, 'diff', { rev, oldrev: n })" class="page-link" :class="{ selected: $route.query.oldrev === n.toString() }">{{ n }}</nuxt-link>
                 <nuxt-link v-if="$store.state.page.viewName === 'blame'" :to="doc_action_link($store.state.page.data.document, 'blame', { rev: n })" class="page-link">{{ n }}</nuxt-link>
             </li>
             <li class="page-item" :class="{ disabled: currentPage >= pageCount }">
