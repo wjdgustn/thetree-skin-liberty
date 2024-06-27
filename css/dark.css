@@ -2,6 +2,7 @@ body.theseed-dark-mode .Liberty,
 body.theseed-dark-mode {
 	background-color: black;
 	color-scheme: dark;
+	color: #ddd;
 }
 
 .theseed-dark-mode pre {
