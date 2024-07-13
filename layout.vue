@@ -127,7 +127,7 @@
                         <span v-html="$store.state.page.data.edit_acl_message" @click="onDynamicContentClick($event)"></span>
                         <span v-if="requestable"><br v-if="$store.state.page.data.edit_acl_message.includes('\n')">대신 <nuxt-link :to="doc_action_link($store.state.page.data.document, 'new_edit_request')">편집 요청</nuxt-link>을 생성할 수 있습니다.</span>
                     </alert>
-                    <alert v-if="$store.state.session.user_document_discuss && $store.state.localConfig['wiki.hide_user_document_discuss'] !== $store.state.session.user_document_discuss" @close="$store.commit('localConfigSetValue', {key: 'wiki.hide_user_document_discuss', value: $store.state.session.user_document_discuss})" closable>
+                    <alert v-if="$store.state.session.user_document_discuss && $store.state.localConfig['wiki.hide_user_document_discuss'] !== $store.state.session.user_document_discuss" @close="$store.commit('localConfigSetValue', {key: 'wiki.hide_user_document_discuss', value: $store.state.session.user_document_discuss})" closable theme="primary">
                         현재 진행 중인 <nuxt-link :to="doc_action_link(user_doc($store.state.session.account.name), 'discuss')">사용자 토론</nuxt-link>이 있습니다.
                     </alert>
                     <alert v-if="$store.state.page.viewName === 'notfound' && $store.state.page.data.document.namespace === '문서'" style="line-height: 2.1rem;">
@@ -170,8 +170,8 @@
             </setting-item-select>
             <setting-item-checkbox label="내비게이션 바 고정" ckey="liberty.fixed_navbar" />
             <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" :default="true" />
-            <setting-item-checkbox label="리버전 선택기" ckey="liberty.rev_selector" :default="true" />
-            <setting-item-checkbox label="리버전 편의성 개선" ckey="liberty.rev_convenience" :default="true" />
+            <setting-item-checkbox label="리비전 선택기" ckey="liberty.rev_selector" :default="true" />
+            <setting-item-checkbox label="리비전 편의성 개선" ckey="liberty.rev_convenience" :default="true" />
         </setting>
     </div>
 </template>

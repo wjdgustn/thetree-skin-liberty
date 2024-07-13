@@ -31,12 +31,12 @@
     border-color: #383b40;
 }
 
-.theseed-dark-mode .pagination .page-item .page-link.selected {
-    background-color: slategray;
-}
-
 .theseed-dark-mode .pagination .page-item .page-link:hover {
     background-color: #444;
+}
+
+.theseed-dark-mode .pagination .page-item .page-link.selected {
+    background-color: slategray;
 }
 </style>
 
