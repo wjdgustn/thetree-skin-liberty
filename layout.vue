@@ -50,7 +50,7 @@
                                 <b>{{ $store.state.session.account.name }}</b><br>Please login!
                             </div>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item" @click.prevent="$modal.show('theseed-setting');">설정</a>
+                            <a href="#" class="dropdown-item" @click.prevent="$vfm.show('theseed-setting');">설정</a>
                             <a v-if="$store.state.currentTheme === 'light'" href="#" class="dropdown-item" @click.prevent="$store.commit('localConfigSetValue', {key: 'wiki.theme', value: 'dark'})">다크 테마로</a>
                             <a v-if="$store.state.currentTheme === 'dark'" href="#" class="dropdown-item" @click.prevent="$store.commit('localConfigSetValue', {key: 'wiki.theme', value: 'light'})">라이트 테마로</a>
                             <div class="dropdown-divider"></div>
