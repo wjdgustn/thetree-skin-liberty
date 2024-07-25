@@ -43,10 +43,10 @@
 
 <script>
 import Common from '~/mixins/common';
-import { VTooltip } from 'v-tooltip';
+import { vTooltip } from 'floating-vue';
     
 export default {
-    directives: { tooltip: VTooltip },
+    directives: { tooltip: vTooltip },
     mixins: [Common],
     computed: {
         convenience() {
