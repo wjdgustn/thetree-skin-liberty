@@ -34,7 +34,7 @@
                     <nuxt-link v-if="toolList.includes('blame')" :to="doc_action_link($store.state.page.data.document, 'blame', rev ? { rev } : undefined)" class="dropdown-item">Blame</nuxt-link>
                     <nuxt-link v-if="toolList.includes('diff')" :to="doc_action_link($store.state.page.data.document, 'diff', rev ? { rev, oldrev: rev - 1 } : undefined)" class="dropdown-item">이전 리버전과 비교</nuxt-link>
                     <nuxt-link v-if="toolList.includes('revert')" :to="doc_action_link($store.state.page.data.document, 'revert', rev ? { rev } : undefined)" class="dropdown-item">이 리버전으로 되돌리기</nuxt-link>
-                    <nuxt-link v-if="toolList.includes('menu')" v-for="m in $store.state.page.data.menus" :key="m.to" :to="m.to" class="dropdown-item" v-text="m.title" />
+                    <nuxt-link v-if="toolList.includes('menu')" v-for="m in $store.state.page.data.menus" :key="m.to" :to="m.to" class="dropdown-item">{{ m.title }}</nuxt-link>
                 </div>
             </template>
         </div>
