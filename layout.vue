@@ -3,7 +3,7 @@
         <div id="top"></div>
         <div class="nav-wrapper" :class="{ 'navbar-fixed-top': $store.state.localConfig['liberty.fixed_navbar'] === true }">
             <nav class="navbar navbar-dark">
-                <nuxt-link class="navbar-brand" to="/" v-text="$store.state.config['skin.liberty.navbar_logo_text']"/>
+                <nuxt-link class="navbar-brand" to="/">{{ $store.state.config['skin.liberty.navbar_logo_text'] }}</nuxt-link>
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
                         <nuxt-link class="nav-link" to="/RecentChanges"><span class="fa fa-refresh"></span><span class="hide-title">최근 변경</span></nuxt-link>
@@ -31,7 +31,7 @@
                             <nuxt-link to="/License" class="dropdown-item">라이선스</nuxt-link>
                             <template v-if="$store.state.session.menus.length">
                                 <div class="dropdown-divider"></div>
-                                <nuxt-link v-for="m in $store.state.session.menus" :key="m.l" :to="m.l" class="dropdown-item" v-text="m.t"/>
+                                <nuxt-link v-for="m in $store.state.session.menus" :key="m.l" :to="m.l" class="dropdown-item">{{ m.t }}</nuxt-link> 
                             </template>
                         </div>
                     </li>
