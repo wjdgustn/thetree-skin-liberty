@@ -105,7 +105,7 @@ export default {
     },
     methods: {
         block() {
-            this.$modal.show('theseed-quick-aclgroup', {
+            this.$vfm.show('theseed-quick-aclgroup', {
                 username: this.$store.state.page.data.account.type === 1 ? "".concat(this.$store.state.page.data.account.name) : undefined,
                 ip: this.$store.state.page.data.account.type === 0 ? "".concat(this.$store.state.page.data.account.name) : undefined,
                 note: "".concat("기여 목록 긴급차단")
