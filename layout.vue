@@ -50,7 +50,7 @@
                                 <b>{{ $store.state.session.account.name }}</b><br>Please login!
                             </div>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item" @click.prevent="$vfm.show('theseed-setting');">설정</a>
+                            <a href="#" class="dropdown-item" @click.prevent="openSettingModal">설정</a>
                             <a v-if="$store.state.currentTheme === 'light'" href="#" class="dropdown-item" @click.prevent="$store.commit('localConfigSetValue', {key: 'wiki.theme', value: 'dark'})">다크 테마로</a>
                             <a v-if="$store.state.currentTheme === 'dark'" href="#" class="dropdown-item" @click.prevent="$store.commit('localConfigSetValue', {key: 'wiki.theme', value: 'light'})">라이트 테마로</a>
                             <div class="dropdown-divider"></div>
@@ -162,17 +162,6 @@
             <nuxt-link id="left" class="scroll-button" to="#top"><i class="fa fa-arrow-up" aria-hidden="true"></i></nuxt-link>
             <nuxt-link id="right" class="scroll-bottom" to="#bottom"><i class="fa fa-arrow-down" aria-hidden="true"></i></nuxt-link>
         </div>
-        <setting>
-            <setting-item-select label="사이드바 설정" ckey="liberty.sidebar" default="normal">
-                <option value="fix">고정</option>
-                <option value="hide">숨김</option>
-                <option value="normal">기본</option>
-            </setting-item-select>
-            <setting-item-checkbox label="내비게이션 바 고정" ckey="liberty.fixed_navbar" />
-            <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" :default="true" />
-            <setting-item-checkbox label="리비전 선택기" ckey="liberty.rev_selector" :default="true" />
-            <setting-item-checkbox label="리비전 편의성 개선" ckey="liberty.rev_convenience" :default="true" />
-        </setting>
     </div>
 </template>
 
@@ -188,9 +177,6 @@
 <script>
 import Common from '~/mixins/common';
 import Alert from '~/components/alert';
-import Setting from '~/components/setting';
-import SettingItemCheckbox from '~/components/settingItemCheckbox';
-import SettingItemSelect from '~/components/settingItemSelect';
 import SeedLinkButton from '~/components/seedLinkButton';
 import LocalDate from '~/components/localDate';
 import RecentCard from './components/recentCard';
@@ -199,6 +185,7 @@ import ContentTool from './components/contentTool';
 import RevSelector from './components/revSelector';
 import FromSelector from './components/fromSelector';
 import License from "raw-loader!./LICENSE";
+import SettingModal from './components/settingModal';
 
 if (process.browser) {
     try {
@@ -212,9 +199,6 @@ export default {
     mixins: [Common],
     components: {
         Alert,
-        Setting,
-        SettingItemCheckbox,
-        SettingItemSelect,
         SeedLinkButton,
         LocalDate,
         RecentCard,
@@ -299,6 +283,9 @@ export default {
         },
         selectByTheme(light, dark) {
             return this.$store.state.currentTheme === 'dark' ? dark : light;
+        },
+        openSettingModal() {
+            this.$vfm.show({ component: SettingModal });
         }
     }
 }
