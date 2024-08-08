@@ -187,14 +187,6 @@ import FromSelector from './components/fromSelector';
 import License from "raw-loader!./LICENSE";
 import SettingModal from './components/settingModal';
 
-if (process.browser) {
-    try {
-        require("./js/jquery-2.2.4.min.js");
-        // require("./js/tether.min.js");
-        require('./bootstrap/js/bootstrap.min.js');
-
-    } catch(e) {}
-}
 export default {
     mixins: [Common],
     components: {
