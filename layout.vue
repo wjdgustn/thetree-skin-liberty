@@ -167,7 +167,6 @@
 
 <style>
 @import "./css/font-awesome.min.css";
-@import "./bootstrap/css/bootstrap.min.css";
 @import "./css/font/Noto Sans KR.css";
 @import "./css/default.css";
 @import './css/default_mobile.css';
@@ -179,13 +178,13 @@ import Common from '~/mixins/common';
 import Alert from '~/components/alert';
 import SeedLinkButton from '~/components/seedLinkButton';
 import LocalDate from '~/components/localDate';
-import RecentCard from './components/recentCard';
-import SearchForm from './components/searchForm';
+import RecentCard from './layouts/recentCard';
+import SearchForm from './layouts/searchForm';
 import ContentTool from './components/contentTool';
 import RevSelector from './components/revSelector';
 import FromSelector from './components/fromSelector';
-import License from "raw-loader!./LICENSE";
 import SettingModal from './components/settingModal';
+import License from "raw-loader!./LICENSE";
 
 export default {
     mixins: [Common],

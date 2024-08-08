@@ -17,7 +17,7 @@
     </form>
 </template>
 
-<style module>
+<style module scoped>
 .form-inline {
     padding: 0.4rem 0;
     float: right;

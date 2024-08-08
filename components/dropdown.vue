@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<sytle module>
+<style module scoped>
 .dropdown-menu {
     font-size: 0.95rem;
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -25,7 +25,7 @@
 .dropdown-divider {
     border-color: #e1e8ed;
 }
-</sytle>
+</style>
 
 <script>
 export default {

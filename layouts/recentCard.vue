@@ -15,14 +15,14 @@
             </template>
             <template v-else>
                 <li v-for="(r,i) in recent" :key="i">
-                    <nuxt-link :class="$style['recent-item']" :class="{ [$style.removed]: r.status === 'delete' }" :key="r.document" :to="doc_action_link(r.document, 'w')">[<local-date :date="r.date" :format="getDateType(r.date)" />] {{ r.document }}</nuxt-link>
+                    <nuxt-link :class="[$style['recent-item'], { [$style.removed]: r.status === 'delete' }]" :key="r.document" :to="doc_action_link(r.document, 'w')">[<local-date :date="r.date" :format="getDateType(r.date)" />] {{ r.document }}</nuxt-link>
                 </li>
             </template>
         </ul>
     </div>
 </template>
 
-<style module>
+<style module scoped>
 .live-recent-content {
     background-color: #fff;
     border: 1px solid #e1e8ed;
