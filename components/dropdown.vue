@@ -1,44 +1,23 @@
 <template>
-    <div class="dropdown">
-        <a class="nav-link dropdown-toggle dropdown-toggle-fix" href="#" data-toggle="dropdown" aria-expanded="false" @click.prevent>
-            <span class="fa fa-gear"></span><span class="hide-title">도구</span>
-        </a>
-        <div class="dropdown-menu">
-            <slot></slot>
+    <div class="dropdown" :class="{ 'open': show }">
+        <div @click="toggle">
+            <slot name="toggle"></slot>
         </div>
+        <slot v-if="show"></slot>
     </div>
 </template>
 
-<style module scoped>
-.dropdown-menu {
-    font-size: 0.95rem;
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    border-color: #e1e8ed;
-}
-
-.dropdown-menu .dropdown-item:hover {
-    background-color: var(--liberty-brand-color, #4188f1);
-    color: #fff;
-    transition: 0.3s;
-}
-
-.dropdown-divider {
-    border-color: #e1e8ed;
-}
-</style>
-
 <script>
 export default {
-    props: {
-
-    },
-    data () {
+    data() {
         return {
-
-        };
+            show: false,
+        }
     },
     methods: {
-
+        toggle() {
+            this.show = !this.show;
+        }
     }
 }
 </script>
