@@ -40,6 +40,10 @@
     padding: 0.2rem 0.6rem;
 }
 
+:global(.theseed-dark-mode) .live-recent-content .live-recent-list li {
+    border-color: #777;
+}
+
 .live-recent-content .live-recent-list li:last-child {
     border-bottom: none;
 }
@@ -49,7 +53,7 @@
     color: #373a3c;
 }
 
-.theseed-dark-mode .live-recent-content .live-recent-list .recent-item {
+:global(.theseed-dark-mode) .live-recent-content .live-recent-list .recent-item {
 	color: #ddd;
 }
 
@@ -60,6 +64,10 @@
 
 .live-recent-content .live-recent-list .recent-item.removed {
     text-decoration: line-through;
+}
+
+.live-recent-content .live-recent-list .recent-item.removed:hover {
+    text-decoration: underline;
 }
 </style>
 
