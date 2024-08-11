@@ -65,6 +65,10 @@
 .live-recent-content .live-recent-list .recent-item.removed {
     text-decoration: line-through;
 }
+
+.live-recent-content .live-recent-list .recent-item.removed:hover {
+    text-decoration: underline;
+}
 </style>
 
 <script>
