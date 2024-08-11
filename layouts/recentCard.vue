@@ -49,6 +49,10 @@
     color: #373a3c;
 }
 
+.theseed-dark-mode .live-recent-content .live-recent-list .recent-item {
+	color: #ddd;
+}
+
 .live-recent-content .live-recent-list .recent-item .new {
     font-size: 0.80rem;
     color: #b73333;

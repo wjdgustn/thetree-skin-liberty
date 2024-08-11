@@ -72,7 +72,7 @@ body.theseed-dark-mode {
 	border-color: #777;
 }
 
-.theseed-dark-mode a.btn.btn-secondary.tools-btn {
+.theseed-dark-mode .btn.btn-secondary.tools-btn {
 	background: black;
 	color: #ddd;
 }
@@ -118,10 +118,6 @@ body.theseed-dark-mode {
 
 .theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-header .nav .nav-item .nav-link.active::before {
 	border-color: #e1e8ed;
-}
-
-.theseed-dark-mode .Liberty .content-wrapper .liberty-sidebar .liberty-right-fixed .live-recent .live-recent-content .live-recent-list .recent-item {
-	color: #ddd;
 }
 
 .theseed-dark-mode ul#live-recent-list {
