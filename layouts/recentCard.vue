@@ -40,6 +40,10 @@
     padding: 0.2rem 0.6rem;
 }
 
+.theseed-dark-mode .live-recent-content .live-recent-list li {
+    border-color: #777;
+}
+
 .live-recent-content .live-recent-list li:last-child {
     border-bottom: none;
 }
