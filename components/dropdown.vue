@@ -16,8 +16,10 @@ export default {
         toggle() {
             this.show = !this.show;
         },
-        hide() {
-            this.show = false;
+        hide(e) {
+            if (this.show) {
+                if (!this.$refs.dropdown.contains(e.target) || this.$slots.default[1].elm.contains(e.target)) this.show = false;
+            }
         }
     },
     mounted() {
