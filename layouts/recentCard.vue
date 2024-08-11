@@ -40,7 +40,7 @@
     padding: 0.2rem 0.6rem;
 }
 
-.theseed-dark-mode .live-recent-content .live-recent-list li {
+:global(.theseed-dark-mode) .live-recent-content .live-recent-list li {
     border-color: #777;
 }
 
