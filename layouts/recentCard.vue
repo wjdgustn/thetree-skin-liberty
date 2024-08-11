@@ -49,7 +49,7 @@
     color: #373a3c;
 }
 
-.theseed-dark-mode .live-recent-content .live-recent-list .recent-item {
+:global(.theseed-dark-mode) .live-recent-content .live-recent-list .recent-item {
 	color: #ddd;
 }
 

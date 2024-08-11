@@ -1,7 +1,7 @@
 <template>
-    <div ref="dropdown" class="dropdown" :class="{ 'open': show }">
+    <div ref="dropdown" class="dropdown">
         <div @click="toggle"><slot name="toggle"></slot></div>
-        <slot v-if="show"></slot>
+        <div v-if="show" @click="hide" :class="{ 'open': show }"><slot></slot></div>
     </div>
 </template>
 
@@ -16,17 +16,18 @@ export default {
         toggle() {
             this.show = !this.show;
         },
-        hide(e) {
-            if (this.show) {
-                if (!this.$refs.dropdown.contains(e.target) || this.$slots.default[1].elm.contains(e.target)) this.show = false;
-            }
-        }
+        hide() {
+            this.show = false;
+        },
+        backdrop(e) {
+            if (this.show && !this.$refs.dropdown.contains(e.target)) this.show = false;
+        },
     },
     mounted() {
-        document.addEventListener('click', this.hide);
+        document.addEventListener('click', this.backdrop);
     },
     beforeUnmount() {
-        document.removeEventListener('click', this.hide);
+        document.removeEventListener('click', this.backdrop);
     }
 }
 </script>
