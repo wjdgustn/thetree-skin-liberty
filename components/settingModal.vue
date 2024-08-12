@@ -1,9 +1,10 @@
 <template>
     <setting>
         <setting-item-select label="사이드바 설정" ckey="liberty.sidebar" :default="sidebar">
-            <option value="fix">고정</option>
+            <option v-if="!isMobile" value="fix">고정</option>
             <option value="hide">숨김</option>
-            <option value="show">표시</option>
+            <option v-if="!isMobile" value="right">우측 표시</option>
+            <!-- <option value="footer">하단 표시</option> -->
         </setting-item-select>
         <setting-item-checkbox label="내비게이션 바 고정" ckey="liberty.fixed_navbar" />
         <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" :default="true" />
@@ -30,8 +31,9 @@ export default {
     },
     computed: {
         sidebar() {
-            return isMobile ? "hide" : "show";
-        }
+            return isMobile ? "hide" : "right";
+        },
+        isMobile
     }
 }
 </script>

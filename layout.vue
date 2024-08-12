@@ -79,7 +79,7 @@
                 <search-form />
             </nav>
         </div>
-        <div class="content-wrapper" :class="{ 'hide-sidebar': $store.state.localConfig['liberty.sidebar'] === 'hide' }">
+        <div class="content-wrapper" :class="{ 'hide-sidebar': isMobile || $store.state.localConfig['liberty.sidebar'] === 'hide' }">
             <div class="liberty-sidebar">
                 <div class="liberty-right-fixed" :class="{ 'fixed': $store.state.localConfig['liberty.sidebar'] === 'fix' }">
                     <div class="live-recent">
@@ -193,6 +193,7 @@ import RevSelector from './components/revSelector';
 import FromSelector from './components/fromSelector';
 import SettingModal from './components/settingModal';
 import License from "raw-loader!./LICENSE";
+import { isMobile } from '~/utils';
 
 export default {
     mixins: [Common],
@@ -248,7 +249,8 @@ export default {
         },
         requestable() {
             return this.$store.state.page.data.editable === true && this.$store.state.page.data.edit_acl_message;
-        }
+        },
+        isMobile
     },
     methods: {
         showEditMessage() {
