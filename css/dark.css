@@ -140,12 +140,12 @@ body.theseed-dark-mode {
 	background-color: #16171A;
 }
 
-.theseed-dark-mode .wiki-article a {
+.theseed-dark-mode a {
 	color: #E69720;
 }
 
-.theseed-dark-mode .w[data-v-ce090af2] del {
-	color: #aaa;
+.theseed-dark-mode a:hover {
+	color: #b3771d;
 }
 
 .theseed-dark-mode .Liberty .nav-wrapper .navbar .form-inline .form-control {
