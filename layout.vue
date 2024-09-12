@@ -79,7 +79,7 @@
                 <search-form />
             </nav>
         </div>
-        <div class="content-wrapper" :class="{ 'hide-sidebar': isMobile || $store.state.localConfig['liberty.sidebar'] === 'hide' }">
+        <div class="content-wrapper" :class="{ 'hide-sidebar': $store.state.localConfig['liberty.sidebar'] === 'hide' || $store.state.localConfig['liberty.sidebar'] === 'footer' }">
             <div class="liberty-sidebar">
                 <div class="liberty-right-fixed" :class="{ 'fixed': $store.state.localConfig['liberty.sidebar'] === 'fix' }">
                     <div class="live-recent">
@@ -161,6 +161,12 @@
                         </li>
                     </ul>
                 </div>
+                <div v-if="$store.state.localConfig['liberty.sidebar'] === 'footer'" class="footer-recent">
+                    <recent-card />
+                    <div class="live-recent-footer">
+                        <nuxt-link to="/RecentChanges" title="최근 변경내역"><span class="label label-info">더 보기</span></nuxt-link>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="scroll-buttons">
@@ -193,7 +199,6 @@ import RevSelector from './components/revSelector';
 import FromSelector from './components/fromSelector';
 import SettingModal from './components/settingModal';
 import License from "./LICENSE?raw";
-import { isMobile } from '~/utils';
 
 export default {
     mixins: [Common],
@@ -249,8 +254,7 @@ export default {
         },
         requestable() {
             return this.$store.state.page.data.editable === true && this.$store.state.page.data.edit_acl_message;
-        },
-        isMobile
+        }
     },
     methods: {
         showEditMessage() {

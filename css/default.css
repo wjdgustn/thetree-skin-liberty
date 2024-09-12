@@ -542,6 +542,30 @@ del, s, strike {
     overflow: visible;
 }
 
+.Liberty .content-wrapper .footer-recent {
+    margin-top: 1rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    border: 1px solid #e1e8ed;
+}
+
+.Liberty .content-wrapper .footer-recent .live-recent-footer {
+    background-color: #f5f8fa;
+    border: 1px solid #e1e8ed;
+    border-bottom-left-radius: .35rem;
+    border-bottom-right-radius: .35rem;
+    border-top: 0;
+    padding: .4rem .6rem;
+    text-align: right;
+}
+
+.Liberty .content-wrapper .footer-recent .live-recent-footer .label {
+    background-color: var(--liberty-brand-color, #4188f1);
+    font-size: .8rem;
+    font-weight: 400;
+    padding: .4rem;
+}
+
 .Liberty .content-wrapper .liberty-content .liberty-content-main .social-buttons {
     float: right;
     margin-bottom: 1rem;
