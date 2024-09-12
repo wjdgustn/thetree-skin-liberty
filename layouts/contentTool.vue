@@ -1,43 +1,14 @@
 <template>
-    <div v-if="toolList.length" class="content-tools">
-        <div class="btn-group" role="group" aria-label="content-tools">
-            <template v-if="toolList.includes('star')">
-                <nuxt-link v-if="$store.state.page.data.starred" :to="doc_action_link($store.state.page.data.document, 'member/unstar')" class="btn btn-secondary tools-btn" v-tooltip="`Unstar`">
-                    <span class="fa fa-star"></span>
-                    <span class="star-count">{{ $store.state.page.data.star_count }}</span>
-                </nuxt-link>
-                <nuxt-link v-else-if="$store.state.page.data.star_count >= 0" :to="doc_action_link($store.state.page.data.document, 'member/star')" class="btn btn-secondary tools-btn" v-tooltip="`Star`">
-                    <span class="fa fa-star-o"></span>
-                    <span class="star-count">{{ $store.state.page.data.star_count }}</span>
-                </nuxt-link>
-            </template>
-            <nuxt-link v-if="toolList.includes('wiki')" :to="doc_action_link($store.state.page.data.document, 'w', rev ? { rev } : undefined)" class="btn btn-secondary tools-btn">보기</nuxt-link>
-            <nuxt-link v-if="toolList.includes('backlink')" :to="doc_action_link($store.state.page.data.document, 'backlink')" class="btn btn-secondary tools-btn">역링크</nuxt-link>
-            <nuxt-link v-if="toolList.includes('discuss')" :to="doc_action_link($store.state.page.data.document, 'discuss')" class="btn btn-secondary tools-btn" :class="{ 'btn-discuss-progress': $store.state.page.data.discuss_progress }">토론</nuxt-link>
-            <template v-if="toolList.includes('edit')">
-                <a v-if="$store.state.page.data.editable === true && $store.state.page.data.edit_acl_message" href="#" @click.prevent="$emit('onClickEditBtn')" class="btn btn-secondary tools-btn"><span class="fa fa-pencil-square"></span> 편집 요청</a>
-                <a v-else-if="$store.state.page.data.editable === false && $store.state.page.data.edit_acl_message" href="#" @click.prevent="$emit('onClickEditBtn')" class="btn btn-secondary tools-btn"><span class="fa fa-lock"></span> 편집</a>
-                <nuxt-link v-else-if="$store.state.page.data.editable === true && !$store.state.page.data.edit_acl_message" :to="doc_action_link($store.state.page.data.document, 'edit')" class="btn btn-secondary tools-btn"><span class="fa fa-edit"></span> 편집</nuxt-link>
-                <nuxt-link v-else :to="doc_action_link($store.state.page.data.document, 'edit')" class="btn btn-secondary tools-btn">편집</nuxt-link>
-            </template>
-            <nuxt-link v-if="toolList.includes('history')" :to="doc_action_link($store.state.page.data.document, 'history', rev ? { from: rev } : undefined)" class="btn btn-secondary tools-btn">역사</nuxt-link>
-            <nuxt-link v-if="toolList.includes('acl')" :to="doc_action_link($store.state.page.data.document, 'acl')" class="btn btn-secondary tools-btn">ACL</nuxt-link>
-            <nuxt-link v-if="toolList.includes('delete')" :to="doc_action_link($store.state.page.data.document, 'delete')" class="btn btn-danger tools-btn">삭제</nuxt-link>
-            <nuxt-link v-if="toolList.includes('move')" :to="doc_action_link($store.state.page.data.document, 'move')"  class="btn btn-secondary tools-btn">이동</nuxt-link>
-            <nuxt-link v-if="toolList.includes('userdoc')" :to="doc_action_link(user_doc($store.state.page.data.account.name), 'w')" class="btn btn-secondary tools-btn">사용자 문서</nuxt-link>
-            <a v-if="toolList.includes('block')" href="#" @click.prevent="block" class="btn btn-danger tools-btn">차단</a>
-            <template v-if="toolList.includes('contribution') || toolList.includes('raw') || toolList.includes('blame') || toolList.includes('diff') || toolList.includes('revert') || toolList.includes('menu')">
+    <div v-if="main.length" class="content-tools">
+        <div class="btn-group">
+            <nuxt-link v-for="l in main" :key="l.to" @click="l.onclick" :to="l.to" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></nuxt-link>
+            <template v-if="menu.length">
                 <dropdown class="btn btn-secondary tools-btn">
                     <template #toggle>
                         <div class="dropdown-toggle"><span class="caret"></span></div>
                     </template>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <nuxt-link v-if="toolList.includes('contribution')" :to="contribution_link($store.state.page.data.user.uuid)" class="dropdown-item">기여 목록</nuxt-link>
-                        <nuxt-link v-if="toolList.includes('raw')" :to="doc_action_link($store.state.page.data.document, 'raw', rev ? { rev } : undefined)" class="dropdown-item">RAW</nuxt-link>
-                        <nuxt-link v-if="toolList.includes('blame')" :to="doc_action_link($store.state.page.data.document, 'blame', rev ? { rev } : undefined)" class="dropdown-item">Blame</nuxt-link>
-                        <nuxt-link v-if="toolList.includes('diff')" :to="doc_action_link($store.state.page.data.document, 'diff', rev ? { rev, oldrev: rev - 1 } : undefined)" class="dropdown-item">이전 리버전과 비교</nuxt-link>
-                        <nuxt-link v-if="toolList.includes('revert')" :to="doc_action_link($store.state.page.data.document, 'revert', rev ? { rev } : undefined)" class="dropdown-item">이 리버전으로 되돌리기</nuxt-link>
-                        <nuxt-link v-if="toolList.includes('menu')" v-for="m in $store.state.page.data.menus" :key="m.to" :to="m.to" class="dropdown-item">{{ m.title }}</nuxt-link>
+                        <nuxt-link v-for="m in menu" :key="m.to" @click="m.onclick" :to="m.to" class="dropdown-item" :class="m.class">{{ m.title }}</nuxt-link>
                     </div>
                 </dropdown>
             </template>
@@ -45,78 +16,358 @@
     </div>
 </template>
 
+<style scoped>
+.content-tools {
+    padding-right: 1rem;
+    padding-top: 1rem;
+    float: right;
+}
+
+.content-tools .tools-btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+}
+
+.content-tools .tools-btn:deep().fa-star,
+.content-tools .tools-btn:deep().fa-star-o {
+    color: #ff6200;
+    margin-right: 0.1em;
+}
+
+.content-tools .dropdown.btn.tools-btn {
+    padding: 0;
+}
+
+.content-tools .dropdown-toggle {
+    padding: 0.4rem 0.3rem;
+    margin-left: -1px;
+}
+
+.content-tools .tools-btn:hover,
+.content-tools .tools-btn:focus,
+.content-tools .tools-btn:active {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #000;
+    outline: 0;
+    transition: 0s;
+}
+
+.content-tools .tools-btn.btn-discuss-progress {
+    background-color: #bbeabb;
+}
+
+.content-tools .tools-btn.btn-discuss-progress:hover,
+.content-tools .tools-btn.btn-discuss-progress:focus,
+.content-tools .tools-btn.btn-discuss-progress:active {
+    background-color: #c5f4c5;
+}
+
+.content-tools .tools-btn.btn-danger,
+.content-tools .tools-btn.btn-danger:hover,
+.content-tools .tools-btn.btn-danger:focus,
+.content-tools .tools-btn.btn-danger:active {
+    background-color: #d9534f;
+    border-color: #adadad;
+    color: white;
+}
+
+.content-tools .dropdown-menu {
+    top: 92%;
+}
+
+.dropdown-item.admin {
+    background-color: #c94545;
+    color: white;
+    border-top: 1px white solid;
+    border-radius: 5px;
+}
+
+.dropdown-item.admin:hover {
+    background-color: #ab0000;
+}
+
+.theseed-dark-mode .dropdown-item.admin {
+    background-color: #711;
+    color: white;
+    border-top: 1px var(--liberty-brand-dark-color, #16171a) solid;
+}
+.theseed-dark-mode .dropdown-item.admin:hover {
+    background-color: #970000;
+}
+</style>
+
 <script>
 import { vTooltip } from 'floating-vue';
 import Common from '~/mixins/common';
-import Dropdown from '../components/dropdown';
+import dropdown from '../components/dropdown';
 
 export default {
     directives: { tooltip: vTooltip },
     mixins: [Common],
     components: {
-        Dropdown
+        dropdown
+    },
+    data() {
+        return {
+            main: [],
+            menu: []
+        }
     },
     computed: {
+        data() {
+            return this.$store.state.page.data;
+        },
         convenience() {
             return this.$store.state.localConfig['liberty.rev_convenience'] !== false;
         },
         rev() {
-            return this.convenience && (this.$store.state.page.data.rev || this.$route.query.rev);
-        },
-        toolList() {
-            const tools = [];
+            return this.convenience && (this.data.rev || this.$route.query.rev);
+        }
+    },
+    methods: {
+        calculate() {
+            this.main = [];
+            this.menu = [];
             switch (this.$store.state.page.viewName) {
                 case 'wiki':
-                    tools.push('backlink', 'acl');
-                    if (this.$store.state.page.data.date !== null) {
-                        tools.push('star', 'discuss', 'edit', 'history');
-                        if (this.convenience) tools.push('raw', 'blame');
-                        if (this.rev) tools.push('diff');
-                        if (this.rev && this.$store.state.page.data.editable === true && !this.$store.state.page.data.edit_acl_message) tools.push('revert');
+                    if (this.data.date === null) {
+                        this.main.push({
+                            to: this.doc_action_link(this.data.document, 'backlink'),
+                            title: "역링크"
+                        });
+                        this.main.push({
+                            to: this.doc_action_link(this.data.document, 'acl'),
+                            title: "ACL"
+                        });
                     }
-                    if (this.$store.state.page.data.user) tools.push('contribution');
+                    else {
+                        if (this.data.starred) this.main.push({
+                            to: this.doc_action_link(this.data.document, 'member/unstar'),
+                            tooltip: "Unstar",
+                            html: `<span class="fa fa-star"></span><span class="star-count">${this.data.star_count}</span>`
+                        });
+                        else if (this.data.star_count >= 0) this.main.push({
+                            to: this.doc_action_link(this.data.document, 'member/star'),
+                            tooltip: "Star",
+                            html: `<span class="fa fa-star-o"></span><span class="star-count">${this.data.star_count}</span>`
+                        });
+                        this.main.push({
+                            to: this.doc_action_link(this.data.document, 'backlink'),
+                            title: "역링크"
+                        });
+                        this.main.push({
+                            to: this.doc_action_link(this.data.document, 'discuss'),
+                            class: this.data.discuss_progress ? 'btn-discuss-progress' : null,
+                            title: "토론"
+                        });
+                        if (this.data.editable === true && this.data.edit_acl_message) this.main.push({
+                            onclick: () => this.$emit('onClickEditBtn'),
+                            html: `<span class="fa fa-pencil-square"></span> 편집 요청`
+                        });
+                        else if (this.data.editable === false && this.data.edit_acl_message) this.main.push({
+                            onclick: () => this.$emit('onClickEditBtn'),
+                            html: `<span class="fa fa-lock"></span> 편집`
+                        });
+                        else this.main.push({
+                            to: this.doc_action_link(this.data.document, 'edit'),
+                            html: `<span class="fa fa-edit"></span> 편집`
+                        });
+                        this.main.push({
+                            to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                            title: "역사"
+                        });
+                        this.main.push({
+                            to: this.doc_action_link(this.data.document, 'acl'),
+                            title: "ACL"
+                        });
+                        if (this.data.user) {
+                            this.menu.push({
+                                to: this.contribution_link(this.data.user.uuid),
+                                title: "기여 목록"
+                            });
+                            if (this.$store.state.session.quick_block && this.$store.state.localConfig['liberty.admin_convenience'] !== false) {
+                                this.menu.push({
+                                    class: 'admin',
+                                    onclick: () => this.block,
+                                    title: "사용자 차단"
+                                });
+                                this.menu.push({
+                                    class: 'admin',
+                                    to: `/BlockHistory?query=${this.data.user.uuid}&target=text`,
+                                    title: "차단 내역"
+                                });
+                                this.menu.push({
+                                    class: 'admin',
+                                    onclick: () => this.copyUuid(this.data.user.uuid),
+                                    title: "UUID 복사"
+                                });
+                                // this.menu.push({
+                                //     class: 'admin',
+                                //     to: '',
+                                //     title: "일괄 되돌리기"
+                                // });
+                            }
+                        }
+                        if (this.convenience) {
+                            this.menu.push({
+                                to: this.doc_action_link(this.data.document, 'raw', this.rev ? { rev: this.rev } : undefined),
+                                title: "RAW"
+                            });
+                            this.menu.push({
+                                to: this.doc_action_link(this.data.document, 'blame', this.rev ? { rev: this.rev } : undefined),
+                                title: "blame"
+                            });
+                        }
+                        if (this.rev) this.menu.push({
+                            to: this.doc_action_link(this.data.document, 'diff', this.rev ? { rev: this.rev, oldrev: this.rev - 1 } : undefined),
+                            title: "이전 리비전과 비교"
+                        });
+                        if (this.rev && this.data.editable === true && !this.data.edit_acl_message) this.menu.push({
+                            to: this.doc_action_link(this.data.document, 'revert', this.rev ? { rev: this.rev } : undefined),
+                            title: "이 리비전으로 되돌리기"
+                        });
+                    }
                     break;
                 case 'notfound':
-                    tools.push('backlink', 'discuss', 'edit', 'history', 'acl');
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'backlink'),
+                        title: "역링크"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'discuss'),
+                        class: this.data.discuss_progress ? 'btn-discuss-progress' : null,
+                        title: "토론"
+                    });
+                    if (this.data.editable === true && this.data.edit_acl_message) this.main.push({
+                        onclick: () => this.$emit('onClickEditBtn'),
+                        html: `<span class="fa fa-pencil-square"></span> 편집 요청`
+                    });
+                    else if (this.data.editable === false && this.data.edit_acl_message) this.main.push({
+                        onclick: () => this.$emit('onClickEditBtn'),
+                        html: `<span class="fa fa-lock"></span> 편집`
+                    });
+                    else this.main.push({
+                        to: this.doc_action_link(this.data.document, 'edit'),
+                        html: `<span class="fa fa-edit"></span> 편집`
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        title: "역사"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'acl'),
+                        title: "ACL"
+                    });
                     break;
                 case 'backlink':
-                    tools.push('history', 'edit');
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'edit'),
+                        title: "편집"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        title: "역사"
+                    });
                     break;
                 case 'edit':
                 case 'edit_edit_request':
-                    tools.push('backlink', 'delete', 'move');
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'backlink'),
+                        title: "역링크"
+                    });
+                    this.main.push({
+                        class: "btn-danger",
+                        to: this.doc_action_link(this.data.document, 'delete'),
+                        title: "삭제"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'move'),
+                        title: "이동"
+                    });
                     break;
                 case 'history':
-                    tools.push('edit', 'backlink');
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'backlink'),
+                        title: "역링크"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'edit'),
+                        title: "편집"
+                    });
                     break;
                 case 'raw':
                 case 'diff':
                 case 'blame':
-                    tools.push('history', 'edit');
-                    if (this.convenience) tools.push('wiki');
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'w', this.rev ? { rev: this.rev } : undefined),
+                        title: "보기"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'edit'),
+                        title: "편집"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        title: "역사"
+                    });
                     break;
                 case 'thread':
                 case 'thread_list_close':
                 case 'edit_request':
                 case 'edit_request_close':
-                    tools.push('discuss');
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'discuss'),
+                        title: "토론"
+                    });
                     break;
                 case 'contribution':
                 case 'contribution_discuss':
-                    if (this.$store.state.page.data.account.type === 1) tools.push('userdoc');
-                    if (this.$store.state.session.quick_block && this.$store.state.page.data.account.type !== -1) tools.push('block');
+                    if (this.data.account.type === 1) this.main.push({
+                        to: this.doc_action_link(this.user_doc(this.data.account.name), 'w'),
+                        title: "사용자 문서"
+                    });
+                    if (this.$store.state.session.quick_block && this.$store.state.localConfig['liberty.admin_convenience'] !== false) {
+                        if (this.data.account.type !== -1) this.menu.push({
+                            class: 'admin',
+                            onclick: () => this.block,
+                            title: "사용자 차단"
+                        });
+                        this.menu.push({
+                            class: 'admin',
+                            to: `/BlockHistory?query=${this.data.account.uuid}&target=text`,
+                            title: "차단 내역"
+                        });
+                        this.menu.push({
+                            class: 'admin',
+                            onclick: () => this.copyUuid(this.data.account.uuid),
+                            title: "UUID 복사"
+                        });
+                    }
                     break;
             }
-            if (this.$store.state.page.data.menus?.length) tools.push('menu');
-            return tools;
-        }
-    },
-    methods: {
+            if (this.data.menus) this.menu = this.menu.contact(this.data.menus);
+        },
         block() {
             this.openQuickACLGroup({
                 username: this.$store.state.page.data.account.type === 1 ? "".concat(this.$store.state.page.data.account.name) : undefined,
                 ip: this.$store.state.page.data.account.type === 0 ? "".concat(this.$store.state.page.data.account.name) : undefined,
                 note: "".concat("기여 목록 긴급차단")
+            });
+        },
+        async copyUuid(uuid) {
+            try {
+                await navigator.clipboard.writeText(uuid);
+            } catch {}
+        }
+    },
+    mounted() {
+        this.calculate();
+    },
+    watch: {
+        $route() {
+            this.$nextTick(() => {
+                this.calculate();
             });
         }
     }
