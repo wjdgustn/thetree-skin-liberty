@@ -198,7 +198,8 @@ import Dropdown from './components/dropdown';
 import RevSelector from './components/revSelector';
 import FromSelector from './components/fromSelector';
 import SettingModal from './components/settingModal';
-import License from "./LICENSE?raw";
+import License from "raw-loader!./LICENSE";
+import { isMobile } from '~/utils';
 
 export default {
     mixins: [Common],
