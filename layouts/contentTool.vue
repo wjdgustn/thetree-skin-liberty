@@ -1,14 +1,20 @@
 <template>
     <div v-if="main.length" class="content-tools">
         <div class="btn-group">
-            <nuxt-link v-for="l in main" :key="l.to" @click="l.onclick" :to="l.to" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></nuxt-link>
+            <template v-for="l in main" :key="l.to">
+                <a v-if="l.onclick" @click="l.onclick" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></a>
+                <nuxt-link v-else :to="l.to" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></nuxt-link>
+            </template>
             <template v-if="menu.length">
                 <dropdown class="btn btn-secondary tools-btn">
                     <template #toggle>
                         <div class="dropdown-toggle"><span class="caret"></span></div>
                     </template>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <nuxt-link v-for="m in menu" :key="m.to" @click="m.onclick" :to="m.to" class="dropdown-item" :class="m.class">{{ m.title }}</nuxt-link>
+                        <template v-for="m in menu" :key="m.to">
+                            <a v-if="m.onclick" @click="m.onclick" class="dropdown-item" :class="m.class">{{ m.title }}</a>
+                            <nuxt-link v-else :to="m.to" class="dropdown-item" :class="m.class">{{ m.title }}</nuxt-link>
+                        </template>
                     </div>
                 </dropdown>
             </template>
