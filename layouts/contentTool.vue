@@ -1,5 +1,5 @@
 <template>
-    <div v-if="main.length" class="content-tools">
+    <div v-if="main.length || menu.length" class="content-tools">
         <div class="btn-group">
             <template v-for="l in main" :key="l.to">
                 <a v-if="l.onclick" @click="l.onclick" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></a>
