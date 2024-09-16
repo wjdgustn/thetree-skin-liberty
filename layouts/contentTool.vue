@@ -2,7 +2,7 @@
     <div v-if="main.length || menu.length" class="content-tools">
         <div class="btn-group">
             <template v-for="l in main" :key="l.to">
-                <a v-if="l.onclick" @click="l.onclick" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></a>
+                <a v-if="l.onclick" @click.prevent="l.onclick" href="#" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></a>
                 <nuxt-link v-else :to="l.to" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></nuxt-link>
             </template>
             <template v-if="menu.length">
@@ -12,7 +12,7 @@
                     </template>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
                         <template v-for="m in menu" :key="m.to">
-                            <a v-if="m.onclick" @click="m.onclick" class="dropdown-item" :class="m.class">{{ m.title }}</a>
+                            <a v-if="m.onclick" @click.prevent="m.onclick" href="#" class="dropdown-item" :class="m.class">{{ m.title }}</a>
                             <nuxt-link v-else :to="m.to" class="dropdown-item" :class="m.class">{{ m.title }}</nuxt-link>
                         </template>
                     </div>
