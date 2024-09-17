@@ -162,7 +162,7 @@
                     </ul>
                 </div>
                 <div v-if="$store.state.localConfig['liberty.sidebar'] === 'footer'" class="footer-recent">
-                    <recent-card />
+                    <recent-card :limit="8" />
                     <div class="live-recent-footer">
                         <nuxt-link to="/RecentChanges" title="최근 변경내역"><span class="label label-info">더 보기</span></nuxt-link>
                     </div>
@@ -199,7 +199,6 @@ import RevSelector from './components/revSelector';
 import FromSelector from './components/fromSelector';
 import SettingModal from './components/settingModal';
 import License from "raw-loader!./LICENSE";
-import { isMobile } from '~/utils';
 
 export default {
     mixins: [Common],
