@@ -543,9 +543,9 @@ del, s, strike {
 }
 
 .Liberty .content-wrapper .footer-recent {
-    margin-top: 1rem;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
+    margin-top: 0.2rem;
+    border-left: 0;
+    border-right: 0;
     border: 1px solid #e1e8ed;
 }
 
