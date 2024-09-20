@@ -1,5 +1,5 @@
 <template>
-    <div v-if="main.length || menu.length" class="content-tools">
+    <div v-if="main.length" class="content-tools">
         <div class="btn-group">
             <template v-for="l in main" :key="l.to">
                 <a v-if="l.onclick" @click.prevent="l.onclick" href="#" class="btn btn-secondary tools-btn" :class="l.class" v-tooltip="l.tooltip" v-text="l.title" v-html="l.html"></a>
@@ -195,7 +195,7 @@ export default {
                             if (this.$store.state.session.quick_block && this.$store.state.localConfig['liberty.admin_convenience'] !== false) {
                                 this.menu.push({
                                     class: 'admin',
-                                    onclick: () => this.block,
+                                    onclick: () => this.block(`${doc_fulltitle(this.data.document)} 긴급차단`),
                                     title: "사용자 차단"
                                 });
                                 this.menu.push({
@@ -329,15 +329,21 @@ export default {
                     break;
                 case 'contribution':
                 case 'contribution_discuss':
-                    if (this.data.account.type === 1) this.main.push({
-                        to: this.doc_action_link(this.user_doc(this.data.account.name), 'w'),
+                    this.main.push({
+                        to: this.data.account.type === 1 ? this.doc_action_link(this.user_doc(this.data.account.name), 'w') : '',
+                        class: this.data.account.type === 1 ? '' : 'disabled',
                         title: "사용자 문서"
                     });
                     if (this.$store.state.session.quick_block && this.$store.state.localConfig['liberty.admin_convenience'] !== false) {
                         if (this.data.account.type !== -1) this.menu.push({
                             class: 'admin',
-                            onclick: () => this.block,
+                            onclick: () => this.block('기여 목록 긴급차단'),
                             title: "사용자 차단"
+                        });
+                        if (this.data.account.type === -1 && this.data.account.uuid) this.menu.push({
+                            to: this.doc_action_link(this.user_doc('*' + this.data.account.uuid), 'w'),
+                            class: 'admin',
+                            title: "삭제된 사용자 문서"
                         });
                         this.menu.push({
                             class: 'admin',
@@ -354,11 +360,11 @@ export default {
             }
             if (this.data.menus) this.menu = this.menu.contact(this.data.menus);
         },
-        block() {
+        block(note) {
             this.openQuickACLGroup({
                 username: this.$store.state.page.data.account.type === 1 ? "".concat(this.$store.state.page.data.account.name) : undefined,
                 ip: this.$store.state.page.data.account.type === 0 ? "".concat(this.$store.state.page.data.account.name) : undefined,
-                note: "".concat("기여 목록 긴급차단")
+                note
             });
         },
         async copyUuid(uuid) {
@@ -372,6 +378,11 @@ export default {
     },
     watch: {
         $route() {
+            this.$nextTick(() => {
+                this.calculate();
+            });
+        },
+        '$store.state.localConfig'() {
             this.$nextTick(() => {
                 this.calculate();
             });

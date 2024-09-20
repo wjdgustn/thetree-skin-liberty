@@ -76,9 +76,9 @@
 </style>
 
 <script>
-import RecentCard from '~/mixins/recentCard';
+import RecentCardMixin from '~/mixins/recentCard';
 export default {
-    mixins: [RecentCard],
+    mixins: [RecentCardMixin],
     props: {
         limit: {
             type: Number,

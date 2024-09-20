@@ -705,3 +705,7 @@ div.scroll-buttons a {
 .scroll-buttons a:link, .scroll-buttons a:visited {
     color: white;
 }
+
+.btn.disabled {
+    cursor: not-allowed;
+}
