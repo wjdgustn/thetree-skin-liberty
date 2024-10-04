@@ -342,7 +342,7 @@ export default {
                             class: 'admin',
                             onclick: () => this.openQuickACLGroup({
                                 username: this.data.account.type === 1 ? "".concat(this.data.account.name) : undefined,
-                                ip: this.data.account.type === 0 ? "".concat(this.data.account.name) : undefined,
+                                ip: this.data.account.type === 0 ? this.data.account.name + '/' + (this.data.account.name.indexOf('.') === -1 ? "128" : '32') : undefined,
                                 note: '기여 목록 긴급차단'
                             }),
                             title: "사용자 차단"
