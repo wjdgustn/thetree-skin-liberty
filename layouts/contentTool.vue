@@ -151,12 +151,12 @@ export default {
                         if (this.data.starred) this.main.push({
                             to: this.doc_action_link(this.data.document, 'member/unstar'),
                             tooltip: "Unstar",
-                            html: `<span class="fa fa-star"></span><span class="star-count">${this.data.star_count}</span>`
+                            html: `<span class="fa fa-star"></span> <span class="star-count">${this.data.star_count}</span>`
                         });
                         else if (this.data.star_count >= 0) this.main.push({
                             to: this.doc_action_link(this.data.document, 'member/star'),
                             tooltip: "Star",
-                            html: `<span class="fa fa-star-o"></span><span class="star-count">${this.data.star_count}</span>`
+                            html: `<span class="fa fa-star-o"></span> <span class="star-count">${this.data.star_count}</span>`
                         });
                         this.main.push({
                             to: this.doc_action_link(this.data.document, 'backlink'),
@@ -169,14 +169,17 @@ export default {
                         });
                         if (this.data.editable === true && this.data.edit_acl_message) this.main.push({
                             onclick: () => this.$emit('onClickEditBtn'),
+                            tooltip: this.data.rev ? "이 리비전에서 편집되는 것이 아닌 최신 리비전에서 편집됩니다." : undefined,
                             html: `<span class="fa fa-pencil-square"></span> 편집 요청`
                         });
                         else if (this.data.editable === false && this.data.edit_acl_message) this.main.push({
                             onclick: () => this.$emit('onClickEditBtn'),
+                            tooltip: this.data.rev ? "이 리비전에서 편집되는 것이 아닌 최신 리비전에서 편집됩니다." : undefined,
                             html: `<span class="fa fa-lock"></span> 편집`
                         });
                         else this.main.push({
                             to: this.doc_action_link(this.data.document, 'edit'),
+                            tooltip: this.data.rev ? "이 리비전에서 편집되는 것이 아닌 최신 리비전에서 편집됩니다." : undefined,
                             html: `<span class="fa fa-edit"></span> 편집`
                         });
                         this.main.push({
