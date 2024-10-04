@@ -705,7 +705,3 @@ div.scroll-buttons a {
 .scroll-buttons a:link, .scroll-buttons a:visited {
     color: white;
 }
-
-.btn.disabled {
-    pointer-events: auto !important;
-}
