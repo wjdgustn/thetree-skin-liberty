@@ -195,7 +195,7 @@ export default {
                             if (this.$store.state.session.quick_block && this.$store.state.localConfig['liberty.admin_convenience'] !== false) {
                                 this.menu.push({
                                     class: 'admin',
-                                    onclick: () => this.block(`${doc_fulltitle(this.data.document)} 긴급차단`),
+                                    onclick: () => this.block(`${this.doc_fulltitle(this.data.document)} 긴급차단`),
                                     title: "사용자 차단"
                                 });
                                 this.menu.push({
