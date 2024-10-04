@@ -195,7 +195,10 @@ export default {
                             if (this.$store.state.session.quick_block && this.$store.state.localConfig['liberty.admin_convenience'] !== false) {
                                 this.menu.push({
                                     class: 'admin',
-                                    onclick: () => this.block(`${this.doc_fulltitle(this.data.document)} 긴급차단`),
+                                    onclick: () => this.openQuickACLGroup({
+                                        username: this.data.document.title,
+                                        note: `${this.doc_fulltitle(this.data.document)} 긴급차단`
+                                    }),
                                     title: "사용자 차단"
                                 });
                                 this.menu.push({
@@ -337,7 +340,11 @@ export default {
                     if (this.$store.state.session.quick_block && this.$store.state.localConfig['liberty.admin_convenience'] !== false) {
                         if (this.data.account.type !== -1) this.menu.push({
                             class: 'admin',
-                            onclick: () => this.block('기여 목록 긴급차단'),
+                            onclick: () => this.openQuickACLGroup({
+                                username: this.$store.state.page.data.account.type === 1 ? "".concat(this.$store.state.page.data.account.name) : undefined,
+                                ip: this.$store.state.page.data.account.type === 0 ? "".concat(this.$store.state.page.data.account.name) : undefined,
+                                note: '기여 목록 긴급차단'
+                            }),
                             title: "사용자 차단"
                         });
                         if (this.data.account.type === -1 && this.data.account.uuid) this.menu.push({
@@ -359,13 +366,6 @@ export default {
                     break;
             }
             if (this.data.menus) this.menu = this.menu.contact(this.data.menus);
-        },
-        block(note) {
-            this.openQuickACLGroup({
-                username: this.$store.state.page.data.account.type === 1 ? "".concat(this.$store.state.page.data.account.name) : undefined,
-                ip: this.$store.state.page.data.account.type === 0 ? "".concat(this.$store.state.page.data.account.name) : undefined,
-                note
-            });
         },
         async copyUuid(uuid) {
             try {
