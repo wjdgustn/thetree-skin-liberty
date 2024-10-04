@@ -341,8 +341,8 @@ export default {
                         if (this.data.account.type !== -1) this.menu.push({
                             class: 'admin',
                             onclick: () => this.openQuickACLGroup({
-                                username: this.$store.state.page.data.account.type === 1 ? "".concat(this.$store.state.page.data.account.name) : undefined,
-                                ip: this.$store.state.page.data.account.type === 0 ? "".concat(this.$store.state.page.data.account.name) : undefined,
+                                username: this.data.account.type === 1 ? "".concat(this.data.account.name) : undefined,
+                                ip: this.data.account.type === 0 ? "".concat(this.data.account.name) : undefined,
                                 note: '기여 목록 긴급차단'
                             }),
                             title: "사용자 차단"
