@@ -141,7 +141,6 @@
                         <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
                     </alert>
-                    <rev-selector v-if="$store.state.page.viewName === 'diff' || $store.state.page.viewName === 'blame'" />
                     <from-selector v-if="$store.state.page.viewName === 'history'" />
                     <nuxt />
                     <div v-if="$store.state.page.viewName === 'license'">
@@ -195,7 +194,6 @@ import RecentCard from './layouts/recentCard';
 import SearchForm from './layouts/searchForm';
 import ContentTool from './layouts/contentTool';
 import Dropdown from './components/dropdown';
-import RevSelector from './components/revSelector';
 import FromSelector from './components/fromSelector';
 import SettingModal from './components/settingModal';
 import License from "raw-loader!./LICENSE";
@@ -210,7 +208,6 @@ export default {
         SearchForm,
         Dropdown,
         ContentTool,
-        RevSelector,
         FromSelector
     },
     data() {
