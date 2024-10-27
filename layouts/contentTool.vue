@@ -251,22 +251,22 @@ export default {
                         class: this.$store.state.page.viewName === 'wiki' ? 'disabled' : null,
                         title: "보기"
                     });
-                    this.menu.push({
+                    this.main.push({
                         to: this.doc_action_link(this.data.document, 'raw', this.rev ? { rev: this.rev } : undefined),
                         class: this.$store.state.page.viewName === 'raw' ? 'disabled' : null,
                         title: "RAW"
                     });
-                    this.menu.push({
+                    this.main.push({
                         to: this.doc_action_link(this.data.document, 'blame', this.rev ? { rev: this.rev } : undefined),
                         class: this.$store.state.page.viewName === 'blame' ? 'disabled' : null,
                         title: "blame"
                     });
-                    this.menu.push({
+                    this.main.push({
                         to: this.doc_action_link(this.data.document, 'revert', this.rev ? { rev: this.rev } : undefined),
                         class: this.$store.state.page.viewName === 'revert' ? 'disabled' : null,
                         title: "되돌리기"
                     });
-                    this.menu.push({
+                    this.main.push({
                         to: this.doc_action_link(this.data.document, 'diff', this.rev ? { rev: this.rev, oldrev: this.rev - 1 } : undefined),
                         class: this.$store.state.page.viewName === 'diff' ? 'disabled' : null,
                         title: "비교"
