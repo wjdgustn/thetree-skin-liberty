@@ -147,6 +147,7 @@
                         <h2>Liberty skin license</h2>
                         <pre>{{ License }}</pre>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div id="bottom" class="liberty-footer">
                     <ul v-if="$store.state.page.viewName === 'wiki' && $store.state.page.data.date" class="footer-info">
