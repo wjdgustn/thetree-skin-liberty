@@ -103,6 +103,29 @@
     background-color: #438a83;
 }
 
+.content-tools .tools-btn.btn-info {
+    color: #373a3c;
+    background-color: #c7eef9;
+    border-color: #78d4ef;
+}
+
+.theseed-dark-mode .content-tools .tools-btn.btn-info {
+    background-color: #334351;
+}
+
+.content-tools .tools-btn.btn-info:hover,
+.content-tools .tools-btn.btn-info:focus,
+.content-tools .tools-btn.btn-info:active {
+    background-color: #a8ebff;
+    border-color: #51c8eb;
+}
+
+.theseed-dark-mode .content-tools .tools-btn.btn-info:hover,
+.theseed-dark-mode .content-tools .tools-btn.btn-info:focus,
+.theseed-dark-mode .content-tools .tools-btn.btn-info:active {
+    background-color: #2a343d;
+}
+
 .content-tools .dropdown-menu {
     top: 92%;
 }
@@ -244,6 +267,7 @@ export default {
                 case 'diff':
                     this.main.push({
                         to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        class: 'btn-info',
                         title: "역사"
                     });
                     this.main.push({
