@@ -110,7 +110,7 @@
                             <small v-else-if="$store.state.page.viewName === 'edit' && $store.state.page.data.body.section">(r{{$store.state.page.data.body.baserev}} 문단 편집)</small>
                             <small v-else-if="$store.state.page.viewName === 'edit' && $store.state.page.data.body.baserev === '0'">(새 문서 생성)</small>
                             <small v-else-if="$store.state.page.viewName === 'edit'">(r{{$store.state.page.data.body.baserev}} 편집)</small>
-                            <small v-else-if="$store.state.page.viewName === 'history'">(문서 역사)</small>
+                            <small v-else-if="$store.state.page.viewName === 'history'">(역사)</small>
                             <small v-else-if="$store.state.page.viewName === 'backlink'">(역링크)</small>
                             <small v-else-if="$store.state.page.viewName === 'move'">(이동)</small>
                             <small v-else-if="$store.state.page.viewName === 'delete'">(삭제)</small>
@@ -150,7 +150,8 @@
                 </div>
                 <div id="bottom" class="liberty-footer">
                     <ul v-if="$store.state.page.viewName === 'wiki' && $store.state.page.data.date" class="footer-info">
-                        <li class="footer-info-lastmod">이 문서는 <local-date :date="$store.state.page.data.date" />에 마지막으로 편집되었습니다.</li>
+                        <li v-if="$store.state.page.data.rev" class="footer-info-lastmod">이 리비전은 <local-date :date="$store.state.page.data.date" />에 마지막으로 편집되었습니다.</li>
+                        <li v-else class="footer-info-lastmod">이 문서는 <local-date :date="$store.state.page.data.date" />에 마지막으로 편집되었습니다.</li>
                         <li class="footer-info-copyright" v-html="$store.state.config['wiki.copyright_text']" />
                     </ul>
                     <ul class="footer-places" @click="onDynamicContentClick($event)" v-html="$store.state.config['skin.liberty.footer_html']" />
@@ -250,7 +251,7 @@ export default {
             };
         },
         requestable() {
-            return this.$store.state.page.data.editable === true && this.$store.state.page.data.edit_acl_message;
+            return this.$store.state.page.data.editable === true && this.$store.state.page.data.edit_acl_message && this.$store.state.page.viewName !== 'notfound';
         }
     },
     methods: {

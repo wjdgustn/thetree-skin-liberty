@@ -50,6 +50,16 @@
         margin: 0.5rem;
     }
 
+    .Liberty .content-wrapper .liberty-content .liberty-content-header .content-tools .btn-group {
+        display: block;
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+
+    .Liberty .content-wrapper .liberty-content .liberty-content-header .content-tools .btn-group>.btn {
+        float: none;
+    }
+
     .Liberty .content-wrapper .liberty-content .liberty-content-header .content-tools {
         text-align: right;
         padding: 0.5rem;
