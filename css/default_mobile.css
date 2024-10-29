@@ -54,10 +54,12 @@
         display: block;
         overflow-x: scroll;
         white-space: nowrap;
+        position: unset;
     }
 
     .Liberty .content-wrapper .liberty-content .liberty-content-header .content-tools .btn-group>.btn {
         float: none;
+        position: unset;
     }
 
     .Liberty .content-wrapper .liberty-content .liberty-content-header .content-tools {
@@ -195,4 +197,3 @@
         padding-top: 0.04rem;
     }
 }
-

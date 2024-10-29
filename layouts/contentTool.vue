@@ -127,7 +127,7 @@
 }
 
 .content-tools .dropdown-menu {
-    top: 92%;
+    top: auto;
 }
 
 .dropdown-item.admin {
