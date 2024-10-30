@@ -1,8 +1,8 @@
 <template>
     <div v-if="$store.state.localConfig['liberty.rev_selector'] !== false">
-        <input v-model="until" type="checkbox">
-        <input v-model="revInput" type="text" inputmode="numeric" pattern="\d*" class="form-control" placeholder="rev">
-        <button @click="onClickSearch" type="button" class="btn btn-secondary">
+        <input v-model="until" type="checkbox" title="until">
+        <input v-model="revInput" @keydown.enter="revSearch" type="text" inputmode="numeric" pattern="\d*" class="form-control" placeholder="rev">
+        <button @click="revSearch" type="button" class="btn btn-secondary">
             <span class="fa fa-search"></span>
         </button>
     </div>
@@ -57,7 +57,7 @@ export default {
         }
     },
     methods: {
-        onClickSearch() {
+        revSearch() {
             if (!this.revInput) this.$router.push(this.doc_action_link(this.$store.state.page.data.document, 'history'));
             else this.$router.push(this.doc_action_link(this.$store.state.page.data.document, 'history', this.until ? { until: this.revInput } : { from: this.revInput }));
         }

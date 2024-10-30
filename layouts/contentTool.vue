@@ -59,14 +59,11 @@
     transition: 0s;
 }
 
-.content-tools .tools-btn.btn-discuss-progress {
-    background-color: #bbeabb;
-}
-
-.content-tools .tools-btn.btn-discuss-progress:hover,
-.content-tools .tools-btn.btn-discuss-progress:focus,
-.content-tools .tools-btn.btn-discuss-progress:active {
-    background-color: #c5f4c5;
+.theseed-dark-mode .content-tools .tools-btn:active,
+.theseed-dark-mode .content-tools .tools-btn:focus,
+.theseed-dark-mode .content-tools .tools-btn:hover {
+	background-color: #383b40;
+    color: white;
 }
 
 .content-tools .tools-btn.btn-danger,
@@ -78,15 +75,65 @@
     color: white;
 }
 
+.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn,
+.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn:hover,
+.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn:active,
+.theseed-dark-mode .content-tools .btn.btn-danger.tools-btn:focus {
+	background-color: #d9534f;
+	color: #ddd;
+}
+
+.content-tools .tools-btn.btn-discuss-progress {
+    background-color: #bbeabb;
+}
+
+.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress {
+    background-color: #325a56;
+}
+
+.content-tools .tools-btn.btn-discuss-progress:hover,
+.content-tools .tools-btn.btn-discuss-progress:focus,
+.content-tools .tools-btn.btn-discuss-progress:active {
+    background-color: #c5f4c5;
+}
+
+.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress:hover,
+.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress:active,
+.theseed-dark-mode .content-tools .tools-btn.btn-discuss-progress:focus {
+    background-color: #438a83;
+}
+
+.content-tools .tools-btn.btn-info {
+    color: #373a3c;
+    background-color: #c7eef9;
+    border-color: #78d4ef;
+}
+
+.theseed-dark-mode .content-tools .tools-btn.btn-info {
+    background-color: #334351;
+}
+
+.content-tools .tools-btn.btn-info:hover,
+.content-tools .tools-btn.btn-info:focus,
+.content-tools .tools-btn.btn-info:active {
+    background-color: #a8ebff;
+    border-color: #51c8eb;
+}
+
+.theseed-dark-mode .content-tools .tools-btn.btn-info:hover,
+.theseed-dark-mode .content-tools .tools-btn.btn-info:focus,
+.theseed-dark-mode .content-tools .tools-btn.btn-info:active {
+    background-color: #2a343d;
+}
+
 .content-tools .dropdown-menu {
-    top: 92%;
+    top: auto;
 }
 
 .dropdown-item.admin {
     background-color: #c94545;
     color: white;
     border-top: 1px white solid;
-    border-radius: 5px;
 }
 
 .dropdown-item.admin:hover {
@@ -98,6 +145,7 @@
     color: white;
     border-top: 1px var(--liberty-brand-dark-color, #16171a) solid;
 }
+
 .theseed-dark-mode .dropdown-item.admin:hover {
     background-color: #970000;
 }
@@ -124,11 +172,8 @@ export default {
         data() {
             return this.$store.state.page.data;
         },
-        convenience() {
-            return this.$store.state.localConfig['liberty.rev_convenience'] !== false;
-        },
         rev() {
-            return this.convenience && (this.data.rev || this.$route.query.rev);
+            return this.data.rev || this.$route.query.rev;
         }
     },
     methods: {
@@ -143,11 +188,12 @@ export default {
                             title: "역링크"
                         });
                         this.main.push({
-                            to: this.doc_action_link(this.data.document, 'acl'),
+                            to: this.doc_action_link(this.data.document, 'acl') + '#namespace.read',
                             title: "ACL"
                         });
+                        break;
                     }
-                    else {
+                    else if (!this.rev) {
                         if (this.data.starred) this.main.push({
                             to: this.doc_action_link(this.data.document, 'member/unstar'),
                             tooltip: "Unstar",
@@ -169,17 +215,14 @@ export default {
                         });
                         if (this.data.editable === true && this.data.edit_acl_message) this.main.push({
                             onclick: () => this.$emit('onClickEditBtn'),
-                            tooltip: this.data.rev ? "이 리비전에서 편집되는 것이 아닌 최신 리비전에서 편집됩니다." : undefined,
                             html: `<span class="fa fa-pencil-square"></span> 편집 요청`
                         });
                         else if (this.data.editable === false && this.data.edit_acl_message) this.main.push({
                             onclick: () => this.$emit('onClickEditBtn'),
-                            tooltip: this.data.rev ? "이 리비전에서 편집되는 것이 아닌 최신 리비전에서 편집됩니다." : undefined,
                             html: `<span class="fa fa-lock"></span> 편집`
                         });
                         else this.main.push({
                             to: this.doc_action_link(this.data.document, 'edit'),
-                            tooltip: this.data.rev ? "이 리비전에서 편집되는 것이 아닌 최신 리비전에서 편집됩니다." : undefined,
                             html: `<span class="fa fa-edit"></span> 편집`
                         });
                         this.main.push({
@@ -214,32 +257,44 @@ export default {
                                     onclick: () => this.copyUuid(this.data.user.uuid),
                                     title: "UUID 복사"
                                 });
-                                // this.menu.push({
-                                //     class: 'admin',
-                                //     to: '',
-                                //     title: "일괄 되돌리기"
-                                // });
                             }
                         }
-                        if (this.convenience) {
-                            this.menu.push({
-                                to: this.doc_action_link(this.data.document, 'raw', this.rev ? { rev: this.rev } : undefined),
-                                title: "RAW"
-                            });
-                            this.menu.push({
-                                to: this.doc_action_link(this.data.document, 'blame', this.rev ? { rev: this.rev } : undefined),
-                                title: "blame"
-                            });
-                        }
-                        if (this.rev) this.menu.push({
-                            to: this.doc_action_link(this.data.document, 'diff', this.rev ? { rev: this.rev, oldrev: this.rev - 1 } : undefined),
-                            title: "이전 리비전과 비교"
-                        });
-                        if (this.rev && this.data.editable === true && !this.data.edit_acl_message) this.menu.push({
-                            to: this.doc_action_link(this.data.document, 'revert', this.rev ? { rev: this.rev } : undefined),
-                            title: "이 리비전으로 되돌리기"
-                        });
+                        break;
                     }
+                case 'raw':
+                case 'blame':
+                case 'revert':
+                case 'diff':
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        class: 'btn-info',
+                        title: "역사"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'w', this.rev ? { rev: this.rev } : undefined),
+                        class: this.$store.state.page.viewName === 'wiki' ? 'disabled' : null,
+                        title: "보기"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'raw', this.rev ? { rev: this.rev } : undefined),
+                        class: this.$store.state.page.viewName === 'raw' ? 'disabled' : null,
+                        title: "RAW"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'blame', this.rev ? { rev: this.rev } : undefined),
+                        class: this.$store.state.page.viewName === 'blame' ? 'disabled' : null,
+                        title: "blame"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'revert', this.rev ? { rev: this.rev } : undefined),
+                        class: this.$store.state.page.viewName === 'revert' ? 'disabled' : null,
+                        title: "되돌리기"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'diff', this.rev ? { rev: this.rev, oldrev: this.rev - 1 } : undefined),
+                        class: this.$store.state.page.viewName === 'diff' ? 'disabled' : null,
+                        title: "비교"
+                    });
                     break;
                 case 'notfound':
                     this.main.push({
@@ -251,11 +306,7 @@ export default {
                         class: this.data.discuss_progress ? 'btn-discuss-progress' : null,
                         title: "토론"
                     });
-                    if (this.data.editable === true && this.data.edit_acl_message) this.main.push({
-                        onclick: () => this.$emit('onClickEditBtn'),
-                        html: `<span class="fa fa-pencil-square"></span> 편집 요청`
-                    });
-                    else if (this.data.editable === false && this.data.edit_acl_message) this.main.push({
+                    if (this.data.edit_acl_message) this.main.push({
                         onclick: () => this.$emit('onClickEditBtn'),
                         html: `<span class="fa fa-lock"></span> 편집`
                     });
@@ -272,21 +323,10 @@ export default {
                         title: "ACL"
                     });
                     break;
-                case 'backlink':
-                    this.main.push({
-                        to: this.doc_action_link(this.data.document, 'edit'),
-                        title: "편집"
-                    });
-                    this.main.push({
-                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
-                        title: "역사"
-                    });
-                    break;
                 case 'edit':
-                case 'edit_edit_request':
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'backlink'),
-                        title: "역링크"
+                        to: this.doc_action_link(this.data.document, 'move'),
+                        title: "이동"
                     });
                     this.main.push({
                         class: "btn-danger",
@@ -294,43 +334,72 @@ export default {
                         title: "삭제"
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'move'),
-                        title: "이동"
-                    });
-                    break;
-                case 'history':
-                    this.main.push({
-                        to: this.doc_action_link(this.data.document, 'backlink'),
-                        title: "역링크"
-                    });
-                    this.main.push({
-                        to: this.doc_action_link(this.data.document, 'edit'),
-                        title: "편집"
-                    });
-                    break;
-                case 'raw':
-                case 'diff':
-                case 'blame':
-                    this.main.push({
-                        to: this.doc_action_link(this.data.document, 'w', this.rev ? { rev: this.rev } : undefined),
-                        title: "보기"
-                    });
-                    this.main.push({
-                        to: this.doc_action_link(this.data.document, 'edit'),
-                        title: "편집"
-                    });
-                    this.main.push({
-                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        to: this.doc_action_link(this.data.document, 'history'),
                         title: "역사"
                     });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'acl') + '#document.edit',
+                        title: "ACL"
+                    });
                     break;
-                case 'thread':
+                case 'edit_edit_request':
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'history'),
+                        title: "역사"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'acl') + '#document.edit_request',
+                        title: "ACL"
+                    });
+                case 'history':
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'discuss'),
+                        title: "토론"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'edit'),
+                        title: "편집"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'acl'),
+                        title: "ACL"
+                    });
+                    break;
+                case 'thread_list':
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'edit'),
+                        title: "편집"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'acl') + '#document.create_thread',
+                        title: "ACL"
+                    });
+                    break;
                 case 'thread_list_close':
-                case 'edit_request':
                 case 'edit_request_close':
                     this.main.push({
                         to: this.doc_action_link(this.data.document, 'discuss'),
                         title: "토론"
+                    });
+                    break;
+                case 'thread':
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'discuss'),
+                        title: "토론"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'acl') + '#document.write_thread_comment',
+                        title: "ACL"
+                    });
+                    break;
+                case 'edit_request':
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'discuss'),
+                        title: "토론"
+                    });
+                    this.main.push({
+                        to: this.doc_action_link(this.data.document, 'acl') + '#document.edit',
+                        title: "ACL"
                     });
                     break;
                 case 'contribution':
@@ -366,6 +435,12 @@ export default {
                             title: "UUID 복사"
                         });
                     }
+                    break;
+                case '':
+                    if (this.$store.state.page.title === '오류') this.main.push({
+                        onclick: () => this.$router.go(-1),
+                        title: "이전 화면"
+                    });
                     break;
             }
             if (this.data.menus) this.menu = this.menu.contact(this.data.menus);

@@ -9,7 +9,6 @@
         <setting-item-checkbox label="내비게이션 바 고정" ckey="liberty.fixed_navbar" />
         <setting-item-checkbox label="페이지 이동 시 검색 창 초기화" ckey="liberty.reset_search_on_move" :default="true" />
         <setting-item-checkbox label="리비전 선택기" ckey="liberty.rev_selector" :default="true" />
-        <setting-item-checkbox label="리비전 편의성 개선" ckey="liberty.rev_convenience" :default="true" />
         <template v-if="$store.state.session.quick_block">
             <hr />
             <setting-item-checkbox label="[ADMIN] 관리 편의성 개선" ckey="liberty.admin_convenience" :default="true" />
