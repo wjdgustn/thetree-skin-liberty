@@ -351,6 +351,7 @@ export default {
                         to: this.doc_action_link(this.data.document, 'acl') + '#document.edit_request',
                         title: "ACL"
                     });
+                    break;
                 case 'history':
                     this.main.push({
                         to: this.doc_action_link(this.data.document, 'discuss'),
