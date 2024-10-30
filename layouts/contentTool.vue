@@ -438,7 +438,7 @@ export default {
                     break;
                 case '':
                     if (this.$store.state.page.title === '오류') this.main.push({
-                        onclick: () => this.$router.go(-1),
+                        onclick: () => this.$router.back(),
                         title: "이전 화면"
                     });
                     break;
