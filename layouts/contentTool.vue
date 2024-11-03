@@ -178,7 +178,7 @@ export default {
     },
     methods: {
         calculate() {
-            const uuid = this.data.uuid;
+            const uuid = this.data?.uuid;
             this.main = [];
             this.menu = [];
             switch (this.$store.state.page.viewName) {
