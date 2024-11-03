@@ -178,6 +178,7 @@ export default {
     },
     methods: {
         calculate() {
+            const uuid = this.data?.uuid;
             this.main = [];
             this.menu = [];
             switch (this.$store.state.page.viewName) {
@@ -193,7 +194,7 @@ export default {
                         });
                         break;
                     }
-                    else if (!this.rev) {
+                    else if (!uuid) {
                         if (this.data.starred) this.main.push({
                             to: this.doc_action_link(this.data.document, 'member/unstar'),
                             tooltip: "Unstar",
@@ -271,27 +272,27 @@ export default {
                         title: "역사"
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'w', this.rev ? { rev: this.rev } : undefined),
+                        to: this.doc_action_link(this.data.document, 'w', uuid ? { uuid } : undefined),
                         class: this.$store.state.page.viewName === 'wiki' ? 'disabled' : null,
                         title: "보기"
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'raw', this.rev ? { rev: this.rev } : undefined),
+                        to: this.doc_action_link(this.data.document, 'raw', uuid ? { uuid } : undefined),
                         class: this.$store.state.page.viewName === 'raw' ? 'disabled' : null,
                         title: "RAW"
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'blame', this.rev ? { rev: this.rev } : undefined),
+                        to: this.doc_action_link(this.data.document, 'blame', uuid ? { uuid } : undefined),
                         class: this.$store.state.page.viewName === 'blame' ? 'disabled' : null,
                         title: "blame"
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'revert', this.rev ? { rev: this.rev } : undefined),
+                        to: this.doc_action_link(this.data.document, 'revert', uuid ? { uuid } : undefined),
                         class: this.$store.state.page.viewName === 'revert' ? 'disabled' : null,
                         title: "되돌리기"
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'diff', this.rev ? { rev: this.rev, oldrev: this.rev - 1 } : undefined),
+                        to: this.doc_action_link(this.data.document, 'diff', uuid ? { uuid } : undefined),
                         class: this.$store.state.page.viewName === 'diff' ? 'disabled' : null,
                         title: "비교"
                     });
