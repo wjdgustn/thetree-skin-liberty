@@ -153,6 +153,7 @@
 
 <script>
 import { vTooltip } from 'floating-vue';
+import { toast } from "vue-sonner";
 import Common from '~/mixins/common';
 import dropdown from '../components/dropdown';
 
@@ -171,9 +172,6 @@ export default {
     computed: {
         data() {
             return this.$store.state.page.data;
-        },
-        rev() {
-            return this.data.rev || this.$route.query.rev;
         }
     },
     methods: {
@@ -227,7 +225,7 @@ export default {
                             html: `<span class="fa fa-edit"></span> 편집`
                         });
                         this.main.push({
-                            to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                            to: this.doc_action_link(this.data.document, 'history', this.data.rev ? { from: this.data.rev } : undefined),
                             title: "역사"
                         });
                         this.main.push({
@@ -255,7 +253,7 @@ export default {
                                 });
                                 this.menu.push({
                                     class: 'admin',
-                                    onclick: () => this.copyUuid(this.data.user.uuid),
+                                    onclick: () => this.copyUuid(this.data.document.title, this.data.user.uuid),
                                     title: "UUID 복사"
                                 });
                             }
@@ -267,7 +265,7 @@ export default {
                 case 'revert':
                 case 'diff':
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        to: this.doc_action_link(this.data.document, 'history', this.data.rev ? { from: this.data.rev } : undefined),
                         class: 'btn-info',
                         title: "역사"
                     });
@@ -316,7 +314,7 @@ export default {
                         html: `<span class="fa fa-edit"></span> 편집`
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'history', this.rev ? { from: this.rev } : undefined),
+                        to: this.doc_action_link(this.data.document, 'history', this.data.rev ? { from: this.data.rev } : undefined),
                         title: "역사"
                     });
                     this.main.push({
@@ -433,7 +431,7 @@ export default {
                         });
                         this.menu.push({
                             class: 'admin',
-                            onclick: () => this.copyUuid(this.data.account.uuid),
+                            onclick: () => this.copyUuid(this.data.account.name, this.data.account.uuid),
                             title: "UUID 복사"
                         });
                     }
@@ -447,10 +445,13 @@ export default {
             }
             if (this.data.menus) this.menu = this.menu.contact(this.data.menus);
         },
-        async copyUuid(uuid) {
+        async copyUuid(name, uuid) {
             try {
                 await navigator.clipboard.writeText(uuid);
-            } catch {}
+                toast(`${name} 사용자의 UUID가 복사되었습니다.`);
+            } catch {
+                toast("복사하지 못했습니다.");
+            }
         }
     },
     mounted() {
