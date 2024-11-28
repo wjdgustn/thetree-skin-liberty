@@ -141,7 +141,6 @@
                         <div class="float-right"><seed-link-button :to="'/Search?q='+ $store.state.page.title">검색</seed-link-button></div>
                         <div class="clearfix"></div>
                     </alert>
-                    <from-selector v-if="$store.state.page.viewName === 'history'" />
                     <nuxt />
                     <div v-if="$store.state.page.viewName === 'license'">
                         <h2>Liberty skin license</h2>
@@ -196,7 +195,6 @@ import RecentCard from './layouts/recentCard';
 import SearchForm from './layouts/searchForm';
 import ContentTool from './layouts/contentTool';
 import Dropdown from './components/dropdown';
-import FromSelector from './components/fromSelector';
 import SettingModal from './components/settingModal';
 import License from "raw-loader!./LICENSE";
 
@@ -209,8 +207,7 @@ export default {
         RecentCard,
         SearchForm,
         Dropdown,
-        ContentTool,
-        FromSelector
+        ContentTool
     },
     data() {
         return {
