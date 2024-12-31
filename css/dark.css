@@ -112,6 +112,10 @@ body.theseed-dark-mode {
 	background-color: #383b40;
 }
 
+.theseed-dark-mode .Liberty .content-wrapper .footer-recent .live-recent-footer {
+	background-color: black;
+}
+
 .theseed-dark-mode .dropdown-menu {
 	background-color: #16171A;
 }

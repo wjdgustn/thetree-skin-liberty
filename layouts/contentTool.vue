@@ -404,6 +404,7 @@ export default {
                     break;
                 case 'contribution':
                 case 'contribution_discuss':
+                case 'contribution_edit_request':
                     this.main.push({
                         to: this.data.account.type === 1 ? this.doc_action_link(this.user_doc(this.data.account.name), 'w') : '',
                         class: this.data.account.type === 1 ? '' : 'disabled',
