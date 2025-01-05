@@ -480,6 +480,7 @@ del, s, strike {
     font-weight: normal;
     width: 100%;
     text-align: left;
+    white-space: normal;
 }
 
 .Liberty .content-wrapper .liberty-content .liberty-content-header {
