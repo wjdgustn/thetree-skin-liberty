@@ -473,7 +473,8 @@ del, s, strike {
 }
 
 .Liberty .content-wrapper .liberty-content .notification .label {
-    background-color: var(--liberty-brand-color, #4188f1);
+    background-color: #d9edf7;
+    color: #2f4f4f;
     padding: 10px;
     line-height: 1rem;
     margin: 0 0 0.6rem 0;
