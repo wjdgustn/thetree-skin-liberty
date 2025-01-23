@@ -99,7 +99,7 @@
             </div>
             <div class="container-fluid liberty-content">
                 <div v-if="$store.state.config['wiki.sitenotice']" id="site-notice" class="notification">
-                    <span class="label label-danger" v-html="$store.state.config['wiki.sitenotice']" />
+                    <span class="label" v-html="$store.state.config['wiki.sitenotice']" />
                 </div>
                 <div class="liberty-content-header">
                     <content-tool @onClickEditBtn="showEditMessage" />
