@@ -35,7 +35,7 @@
                                 <nuxt-link to="/License" class="dropdown-item">라이선스</nuxt-link>
                                 <template v-if="$store.state.session.menus.length">
                                     <div class="dropdown-divider"></div>
-                                    <nuxt-link v-for="m in $store.state.session.menus" :key="m.l" :to="m.l" class="dropdown-item">{{ m.t }}</nuxt-link> 
+                                    <nuxt-link v-for="m in $store.state.session.menus" :key="m.l" :to="m.l" class="dropdown-item">{{ m.t }}</nuxt-link>
                                 </template>
                             </div>
                         </dropdown>
@@ -159,7 +159,7 @@
                     <ul class="footer-places" @click="onDynamicContentClick($event)" v-html="$store.state.config['skin.liberty.footer_html']" />
                     <ul class="footer-icons">
                         <li class="footer-poweredbyico">
-                            <a href="//gitlab.com/librewiki/Liberty-MW-Skin">Liberty</a> | <a href="//theseed.io/">the seed</a>
+                            <a href="//github.com/wjdgustn/thetree-skin-liberty" target="_blank">Liberty</a> | <a href="//github.com/wjdgustn/thetree" target="_blank">the tree</a>
                         </li>
                     </ul>
                 </div>
