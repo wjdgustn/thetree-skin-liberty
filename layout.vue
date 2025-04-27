@@ -236,7 +236,7 @@ export default {
                 '--liberty-brand-color': this.brand_color,
                 '--liberty-brand-dark-color': this.selectByTheme(this.$store.state.config['skin.liberty.brand_dark_color_1'] ?? this.darkenColor(this.brand_color), '#16171a'),
                 '--liberty-brand-bright-color': this.selectByTheme(this.$store.state.config['skin.liberty.brand_bright_color_1'] ?? this.lightenColor(this.brand_color), '#383b40'),
-                '--liberty-navbar-logo-image': this.$store.state.config['skin.liberty.navbar_logo_image'],
+                '--liberty-navbar-logo-image': this.$store.state.config['wiki.logo_url'] || this.$store.state.config['skin.liberty.navbar_logo_image'],
                 '--liberty-navbar-logo-minimum-width': this.$store.state.config['skin.liberty.navbar_logo_minimum_width'],
                 '--liberty-navbar-logo-width': this.$store.state.config['skin.liberty.navbar_logo_width'],
                 '--liberty-navbar-logo-size': this.$store.state.config['skin.liberty.navbar_logo_size'],
