@@ -156,7 +156,7 @@
                         <li v-else class="footer-info-lastmod">이 문서는 <local-date :date="$store.state.page.data.date" />에 마지막으로 편집되었습니다.</li>
                         <li class="footer-info-copyright" v-html="$store.state.page.data.copyright_text" />
                     </ul>
-                    <ul class="footer-places" @click="onDynamicContentClick($event)" v-html="$store.state.config['skin.liberty.footer_html']" />
+                    <ul class="footer-places" @click="onDynamicContentClick($event)" v-html="$store.state.config['skin.liberty.footer_html'] || $store.state.config['wiki.footer_text']" />
                     <ul class="footer-icons">
                         <li class="footer-poweredbyico">
                             <a href="//github.com/wjdgustn/thetree-skin-liberty" target="_blank">Liberty</a> | <a href="//github.com/wjdgustn/thetree" target="_blank">the tree</a>
