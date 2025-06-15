@@ -127,7 +127,7 @@ del, s, strike {
     min-height: 2.8rem;
     background-color: var(--liberty-brand-color, #4188f1);
     position: absolute;
-    z-index: 100;
+    z-index: 300;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
     font-weight: bold;
     left: 0;
