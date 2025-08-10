@@ -388,7 +388,7 @@ export default {
                         title: "토론"
                     });
                     this.main.push({
-                        to: this.doc_action_link(this.data.document, 'acl') + '#document.write_thread_comment',
+                        to: `/thread/${this.data.thread.url}/acl`,
                         title: "ACL"
                     });
                     break;
