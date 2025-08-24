@@ -421,7 +421,7 @@ export default {
                             title: "사용자 차단"
                         });
                         if (this.data.account.type === -1 && this.data.account.uuid) this.menu.push({
-                            to: this.doc_action_link(this.user_doc('*' + this.data.account.uuid), 'w'),
+                            to: this.doc_action_link('삭제된사용자:' + this.data.account.uuid, 'w'),
                             class: 'admin',
                             title: "삭제된 사용자 문서"
                         });
