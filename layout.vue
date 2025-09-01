@@ -159,7 +159,7 @@
                     <ul class="footer-places" @click="onDynamicContentClick($event)" v-html="$store.state.config['skin.liberty.footer_html']" />
                     <ul class="footer-icons">
                         <li class="footer-poweredbyico">
-                            <a href="//gitlab.com/librewiki/Liberty-MW-Skin">Liberty</a> | <a href="//theseed.io/">the seed</a>
+                            <a href="//github.com/librewiki/liberty-skin">Liberty</a> | <a href="//theseed.io/">the seed</a>
                         </li>
                     </ul>
                 </div>
