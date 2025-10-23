@@ -23,6 +23,7 @@
                             </template>
                             <div class="dropdown-menu" role="menu">
                                 <nuxt-link to="/Upload" class="dropdown-item">파일 올리기</nuxt-link>
+                                <div class="dropdown-divider"></div>
                                 <nuxt-link to="/NeededPages" class="dropdown-item">작성이 필요한 문서</nuxt-link>
                                 <nuxt-link to="/OrphanedPages" class="dropdown-item">고립된 문서</nuxt-link>
                                 <nuxt-link to="/OrphanedCategories" class="dropdown-item">고립된 분류</nuxt-link>
